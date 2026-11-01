@@ -1,0 +1,20 @@
+[[main]]
+  name = "文章"
+  pageRef = "posts"
+  weight = 10
+
+[[main]]
+  name = "分类"
+  pageRef = "categories"
+  weight = 20
+
+[[main]]
+  name = "标签"
+  pageRef = "tags"
+  weight = 30
+
+[[main]]
+  identifier = "search"
+  weight = 99
+  [main.params]
+    action = "search"
