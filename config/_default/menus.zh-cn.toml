@@ -5,6 +5,7 @@
 
 [[main]]
   name = "分类"
+  identifier = "categories"
   pageRef = "categories"
   weight = 20
 
@@ -18,3 +19,27 @@
   weight = 99
   [main.params]
     action = "search"
+
+[[main]]
+  name = "欧洲政治"
+  parent = "categories"
+  pageRef = "categories/欧洲政治"
+  weight = 21
+
+[[main]]
+  name = "能源与地缘"
+  parent = "categories"
+  pageRef = "categories/能源与地缘"
+  weight = 22
+
+[[main]]
+  name = "东方文明"
+  parent = "categories"
+  pageRef = "categories/东方文明"
+  weight = 23
+
+[[main]]
+  name = "诗歌散文"
+  parent = "categories"
+  pageRef = "categories/诗歌散文"
+  weight = 24
