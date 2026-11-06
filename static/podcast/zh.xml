@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:podcast="https://podcastindex.org/namespace/1.0">
+ <channel>
+  <title>Andy 的博客 · 声音版</title>
+  <link>https://wyz.name/</link>
+  <atom:link href="https://wyz.name/podcast/zh.xml" rel="self" type="application/rss+xml"/>
+  <language>zh-cn</language>
+  <description>Andy 的博客文章朗读版：欧洲政治、能源与地缘。由 AI 语音合成。</description>
+  <itunes:summary>Andy 的博客文章朗读版：欧洲政治、能源与地缘。由 AI 语音合成。</itunes:summary>
+  <itunes:author>Andy</itunes:author>
+  <itunes:image href="https://wyz.name/podcast/cover.jpg"/>
+  <image><url>https://wyz.name/podcast/cover.jpg</url><title>Andy 的博客 · 声音版</title><link>https://wyz.name/</link></image>
+  <itunes:category text="News"><itunes:category text="Politics"/></itunes:category>
+  <itunes:explicit>false</itunes:explicit>
+  <itunes:type>episodic</itunes:type>
+  <copyright>© 2026 Andy</copyright>
+  <item>
+   <title>期限，而非开关：中期选举之后的霍尔木兹海峡</title>
+   <description>选举改变的是战争的期限，而不是特朗普手里的开关。未来两个月反而是风险最高的窗口。 https://wyz.name/posts/hormuz-after-midterms-2026/</description>
+   <link>https://wyz.name/posts/hormuz-after-midterms-2026/</link>
+   <guid isPermaLink="false">wyz-hormuz-after-midterms-2026-zh</guid>
+   <pubDate>Fri, 06 Nov 2026 08:40:00 +0800</pubDate>
+   <enclosure url="https://wyz.name/posts/hormuz-after-midterms-2026/audio-zh.mp3" length="2017728" type="audio/mpeg"/>
+   <itunes:duration>336</itunes:duration>
+   <itunes:explicit>false</itunes:explicit>
+   <itunes:episodeType>full</itunes:episodeType>
+  </item>
+  <item>
+   <title>蓝色浪潮之后：美国中期选举结果与欧洲经济的下一步</title>
+   <description>美国国会易手、欧元区通胀破4%，欧洲面对的是一个更受牵制的国会和一个手握行政权的总统。 https://wyz.name/posts/us-midterms-europe-2026/</description>
+   <link>https://wyz.name/posts/us-midterms-europe-2026/</link>
+   <guid isPermaLink="false">wyz-us-midterms-europe-2026-zh</guid>
+   <pubDate>Thu, 05 Nov 2026 09:30:00 +0900</pubDate>
+   <enclosure url="https://wyz.name/posts/us-midterms-europe-2026/audio-zh.mp3" length="2743344" type="audio/mpeg"/>
+   <itunes:duration>457</itunes:duration>
+   <itunes:explicit>false</itunes:explicit>
+   <itunes:episodeType>full</itunes:episodeType>
+  </item>
+  <item>
+   <title>躁动的秋天：2026年欧洲政治形势与经济走向</title>
+   <description>示威潮、选举周期、能源冲击与美国中期选举，正在同时塑造欧洲的下一步。 https://wyz.name/posts/europe-autumn-2026/</description>
+   <link>https://wyz.name/posts/europe-autumn-2026/</link>
+   <guid isPermaLink="false">wyz-europe-autumn-2026-zh</guid>
+   <pubDate>Sun, 01 Nov 2026 12:00:00 +0900</pubDate>
+   <enclosure url="https://wyz.name/posts/europe-autumn-2026/audio-zh.mp3" length="2597184" type="audio/mpeg"/>
+   <itunes:duration>432</itunes:duration>
+   <itunes:explicit>false</itunes:explicit>
+   <itunes:episodeType>full</itunes:episodeType>
+  </item>
+ </channel>
+</rss>

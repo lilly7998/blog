@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:podcast="https://podcastindex.org/namespace/1.0">
+ <channel>
+  <title>Andy&#x27;s Blog (English Audio)</title>
+  <link>https://wyz.name/</link>
+  <atom:link href="https://wyz.name/podcast/en.xml" rel="self" type="application/rss+xml"/>
+  <language>en</language>
+  <description>English audio editions of Andy&#x27;s blog on European politics, energy and geopolitics. Translated and read by AI voices.</description>
+  <itunes:summary>English audio editions of Andy&#x27;s blog on European politics, energy and geopolitics. Translated and read by AI voices.</itunes:summary>
+  <itunes:author>Andy</itunes:author>
+  <itunes:image href="https://wyz.name/podcast/cover.jpg"/>
+  <image><url>https://wyz.name/podcast/cover.jpg</url><title>Andy&#x27;s Blog (English Audio)</title><link>https://wyz.name/</link></image>
+  <itunes:category text="News"><itunes:category text="Politics"/></itunes:category>
+  <itunes:explicit>false</itunes:explicit>
+  <itunes:type>episodic</itunes:type>
+  <copyright>© 2026 Andy</copyright>
+  <item>
+   <title>A Deadline, Not a Switch: The Strait of Hormuz After the Midterms</title>
+   <description>The election changed the war&#x27;s deadline, not Trump&#x27;s switch. The next two months may be the riskiest window for the Strait of Hormuz. https://wyz.name/posts/hormuz-after-midterms-2026/</description>
+   <link>https://wyz.name/posts/hormuz-after-midterms-2026/</link>
+   <guid isPermaLink="false">wyz-hormuz-after-midterms-2026-en</guid>
+   <pubDate>Fri, 06 Nov 2026 08:40:00 +0800</pubDate>
+   <enclosure url="https://wyz.name/posts/hormuz-after-midterms-2026/audio-en.mp3" length="2377440" type="audio/mpeg"/>
+   <itunes:duration>396</itunes:duration>
+   <itunes:explicit>false</itunes:explicit>
+   <itunes:episodeType>full</itunes:episodeType>
+  </item>
+  <item>
+   <title>After the Blue Wave: The US Midterm Results and What Comes Next for Europe&#x27;s Economy</title>
+   <description>Congress has changed hands and eurozone inflation has passed 4%. Europe now faces a more constrained Congress and a president who keeps his executive power. https://wyz.name/posts/us-midterms-europe-2026/</description>
+   <link>https://wyz.name/posts/us-midterms-europe-2026/</link>
+   <guid isPermaLink="false">wyz-us-midterms-europe-2026-en</guid>
+   <pubDate>Thu, 05 Nov 2026 09:30:00 +0900</pubDate>
+   <enclosure url="https://wyz.name/posts/us-midterms-europe-2026/audio-en.mp3" length="3040560" type="audio/mpeg"/>
+   <itunes:duration>506</itunes:duration>
+   <itunes:explicit>false</itunes:explicit>
+   <itunes:episodeType>full</itunes:episodeType>
+  </item>
+  <item>
+   <title>A Restless Autumn: Europe&#x27;s Politics and Economy in 2026</title>
+   <description>Protests, an election cycle, an energy shock and the US midterms are shaping Europe&#x27;s next steps at the same time. https://wyz.name/posts/europe-autumn-2026/</description>
+   <link>https://wyz.name/posts/europe-autumn-2026/</link>
+   <guid isPermaLink="false">wyz-europe-autumn-2026-en</guid>
+   <pubDate>Sun, 01 Nov 2026 12:00:00 +0900</pubDate>
+   <enclosure url="https://wyz.name/posts/europe-autumn-2026/audio-en.mp3" length="2833488" type="audio/mpeg"/>
+   <itunes:duration>472</itunes:duration>
+   <itunes:explicit>false</itunes:explicit>
+   <itunes:episodeType>full</itunes:episodeType>
+  </item>
+ </channel>
+</rss>

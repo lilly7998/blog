@@ -1,0 +1,25 @@
+{{ $zh := .Resources.GetMatch "audio-zh.mp3" }}
+{{ $en := .Resources.GetMatch "audio-en.mp3" }}
+{{ if or $zh $en }}
+<div id="post-audio" class="max-w-prose mb-8 rounded-lg border border-neutral-300 p-4 dark:border-neutral-600 print:hidden">
+  <div class="flex flex-wrap items-center gap-2 mb-3 text-sm">
+    <span class="font-semibold text-neutral-800 dark:text-neutral-200">🎧 收听本文</span>
+    {{ with $zh }}<button type="button" data-src="{{ .RelPermalink }}" class="pa-btn rounded px-3 py-1 bg-primary-500 text-neutral-50">中文</button>{{ end }}
+    {{ with $en }}<button type="button" data-src="{{ .RelPermalink }}" class="pa-btn rounded px-3 py-1 bg-neutral-200 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200">English</button>{{ end }}
+    <span class="ms-auto text-xs text-neutral-500"><a href="/podcast/">订阅播客</a></span>
+  </div>
+  <audio id="pa-audio" controls preload="none" class="w-full" src="{{ with $zh }}{{ .RelPermalink }}{{ else }}{{ with $en }}{{ .RelPermalink }}{{ end }}{{ end }}"></audio>
+  <p class="mt-2 mb-0 text-xs text-neutral-500">AI 语音朗读；英文版为翻译稿。</p>
+</div>
+<script>
+(function(){
+  var a=document.getElementById('pa-audio'); var bs=document.querySelectorAll('#post-audio .pa-btn');
+  var on=['bg-primary-500','text-neutral-50'], off=['bg-neutral-200','text-neutral-800','dark:bg-neutral-700','dark:text-neutral-200'];
+  bs.forEach(function(b){ b.addEventListener('click',function(){
+    var playing=!a.paused; a.src=b.dataset.src; if(playing){a.play();}
+    bs.forEach(function(x){ x.classList.remove.apply(x.classList,on); x.classList.add.apply(x.classList,off); });
+    b.classList.remove.apply(b.classList,off); b.classList.add.apply(b.classList,on);
+  });});
+})();
+</script>
+{{ end }}
