@@ -1,0 +1,69 @@
+<div id="mini-widgets" class="mt-3 flex flex-col gap-1 text-xs text-neutral-500 dark:text-neutral-400 print:hidden">
+  <div id="wx" class="cursor-pointer select-none" title="">
+    <span id="wx-now">…</span>
+    <div id="wx-days" class="hidden mt-1"></div>
+  </div>
+  <div id="kd"></div>
+  <div id="busuanzi_container_site_pv" style="display:none"><span id="sv-label"></span><span id="busuanzi_value_site_pv"></span></div>
+</div>
+<script>
+(function(){
+  var EN = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
+  var T = EN ? {more:'3-day forecast', loc:'Weather', views:'Site views ', days:function(n){return n===0?'today':(n===1?'in 1 day':'in '+n+' days');}}
+             : {more:'未来三天', loc:'天气', views:'全站访问 ', days:function(n){return n===0?'今天':'还有 '+n+' 天';}};
+  document.getElementById('sv-label').textContent = T.views;
+
+  /* ---------- Weather: visitor's city by IP, fallback Cairo ---------- */
+  var CAIRO = {city: EN ? 'Cairo' : '开罗', lat: 30.0444, lon: 31.2357};
+  var ICON = function(c){
+    if(c===0) return '☀️'; if(c<=2) return '🌤️'; if(c===3) return '☁️';
+    if(c===45||c===48) return '🌫️'; if(c>=51&&c<=67) return '🌧️';
+    if(c>=71&&c<=77) return '❄️'; if(c>=80&&c<=82) return '🌦️';
+    if(c===85||c===86) return '🌨️'; if(c>=95) return '⛈️'; return '🌡️';
+  };
+  function withTimeout(p, ms){ return Promise.race([p, new Promise(function(_,r){setTimeout(function(){r('timeout')},ms)})]); }
+  function getLoc(){
+    try { var c = JSON.parse(sessionStorage.getItem('wx-loc')); if(c) return Promise.resolve(c); } catch(e){}
+    return withTimeout(fetch('https://get.geojs.io/v1/ip/geo.json').then(function(r){return r.json();}), 3000)
+      .then(function(g){
+        var l = {city: g.city || g.region || g.country, lat: parseFloat(g.latitude), lon: parseFloat(g.longitude)};
+        if(!l.city || isNaN(l.lat)) throw 'bad';
+        sessionStorage.setItem('wx-loc', JSON.stringify(l)); return l;
+      }).catch(function(){ return CAIRO; });
+  }
+  function fmtDay(s){
+    var d = new Date(s+'T12:00:00');
+    return EN ? d.toLocaleDateString('en-GB',{weekday:'short'}) : ['周日','周一','周二','周三','周四','周五','周六'][d.getDay()];
+  }
+  getLoc().then(function(l){
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude='+l.lat+'&longitude='+l.lon+
+      '&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=3&timezone=auto';
+    return withTimeout(fetch(url).then(function(r){return r.json();}), 5000).then(function(w){
+      document.getElementById('wx-now').textContent =
+        '📍 '+l.city+' · '+ICON(w.current.weather_code)+' '+Math.round(w.current.temperature_2m)+'°C  ▾';
+      var html = '';
+      for(var i=0;i<w.daily.time.length;i++){
+        html += '<span class="me-3">'+fmtDay(w.daily.time[i])+' '+ICON(w.daily.weather_code[i])+' '+
+          Math.round(w.daily.temperature_2m_min[i])+'–'+Math.round(w.daily.temperature_2m_max[i])+'°</span>';
+      }
+      document.getElementById('wx-days').innerHTML = html;
+      document.getElementById('wx').title = T.more + ' · Open-Meteo';
+    });
+  }).catch(function(){ document.getElementById('wx').style.display='none'; });
+  document.getElementById('wx').addEventListener('click', function(){
+    document.getElementById('wx-days').classList.toggle('hidden');
+  });
+
+  /* ---------- Key-date countdown: next two upcoming ---------- */
+  var KD = {{ hugo.Data.keydates | jsonify | safeJS }};
+  var today = new Date(); today.setHours(0,0,0,0);
+  var up = (KD||[]).map(function(k){
+    var p = k.date.split('-'); var d = new Date(+p[0], +p[1]-1, +p[2]);
+    return {n: Math.round((d - today)/86400000), label: EN ? k.en : k.zh};
+  }).filter(function(k){return k.n >= 0;}).sort(function(a,b){return a.n-b.n;}).slice(0,2);
+  document.getElementById('kd').textContent = up.length ? '⏳ ' + up.map(function(k){
+    return EN ? k.label+' '+T.days(k.n) : '距'+k.label+(k.n===0?'：今天':'还有 '+k.n+' 天');
+  }).join(' · ') : '';
+})();
+</script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>

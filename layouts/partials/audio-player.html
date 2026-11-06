@@ -1,15 +1,18 @@
 {{ $zh := .Resources.GetMatch "audio-zh.mp3" }}
 {{ $en := .Resources.GetMatch "audio-en.mp3" }}
+{{ $isEn := eq .Language.Lang "en" }}
+{{ $first := $zh }}{{ if and $isEn $en }}{{ $first = $en }}{{ end }}
 {{ if or $zh $en }}
 <div id="post-audio" class="max-w-prose mb-8 rounded-lg border border-neutral-300 p-4 dark:border-neutral-600 print:hidden">
   <div class="flex flex-wrap items-center gap-2 mb-3 text-sm">
-    <span class="font-semibold text-neutral-800 dark:text-neutral-200">🎧 收听本文</span>
-    {{ with $zh }}<button type="button" data-src="{{ .RelPermalink }}" class="pa-btn rounded px-3 py-1 bg-primary-500 text-neutral-50">中文</button>{{ end }}
-    {{ with $en }}<button type="button" data-src="{{ .RelPermalink }}" class="pa-btn rounded px-3 py-1 bg-neutral-200 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200">English</button>{{ end }}
-    <span class="ms-auto text-xs text-neutral-500"><a href="/podcast/">订阅播客</a></span>
+    <span class="font-semibold text-neutral-800 dark:text-neutral-200">🎧 {{ if $isEn }}Listen to this post{{ else }}收听本文{{ end }}</span>
+    {{ $on := "bg-primary-500 text-neutral-50" }}{{ $off := "bg-neutral-200 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200" }}
+    {{ with $zh }}<button type="button" data-src="{{ .RelPermalink }}" class="pa-btn rounded px-3 py-1 {{ if $isEn }}{{ $off }}{{ else }}{{ $on }}{{ end }}">中文</button>{{ end }}
+    {{ with $en }}<button type="button" data-src="{{ .RelPermalink }}" class="pa-btn rounded px-3 py-1 {{ if $isEn }}{{ $on }}{{ else }}{{ $off }}{{ end }}">English</button>{{ end }}
+    <span class="ms-auto text-xs text-neutral-500"><a href="{{ if $isEn }}/en/podcast/{{ else }}/podcast/{{ end }}">{{ if $isEn }}Subscribe{{ else }}订阅播客{{ end }}</a></span>
   </div>
-  <audio id="pa-audio" controls preload="none" class="w-full" src="{{ with $zh }}{{ .RelPermalink }}{{ else }}{{ with $en }}{{ .RelPermalink }}{{ end }}{{ end }}"></audio>
-  <p class="mt-2 mb-0 text-xs text-neutral-500">AI 语音朗读；英文版为翻译稿。</p>
+  <audio id="pa-audio" controls preload="none" class="w-full" src="{{ with $first }}{{ .RelPermalink }}{{ else }}{{ with $en }}{{ .RelPermalink }}{{ end }}{{ end }}"></audio>
+  <p class="mt-2 mb-0 text-xs text-neutral-500">{{ if $isEn }}AI narration. The English version is a translation.{{ else }}AI 语音朗读；英文版为翻译稿。{{ end }}</p>
 </div>
 <script>
 (function(){

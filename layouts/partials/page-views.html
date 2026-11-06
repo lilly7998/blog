@@ -1,0 +1,5 @@
+{{ if eq .Type "posts" }}
+<p class="max-w-prose -mt-4 mb-6 text-xs text-neutral-500 dark:text-neutral-400 print:hidden" id="busuanzi_container_page_pv" style="display:none">
+  {{ if eq .Language.Lang "en" }}Views: {{ else }}阅读 {{ end }}<span id="busuanzi_value_page_pv"></span>{{ if ne .Language.Lang "en" }} 次{{ end }}
+</p>
+{{ end }}

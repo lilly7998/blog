@@ -43,3 +43,8 @@
   parent = "categories"
   pageRef = "categories/诗歌散文"
   weight = 24
+
+[[main]]
+  name = "播客"
+  pageRef = "podcast"
+  weight = 40

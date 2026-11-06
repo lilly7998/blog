@@ -1,0 +1,38 @@
+[[main]]
+  name = "Posts"
+  pageRef = "posts"
+  weight = 10
+
+[[main]]
+  name = "Categories"
+  identifier = "categories"
+  pageRef = "categories"
+  weight = 20
+
+[[main]]
+  name = "Tags"
+  pageRef = "tags"
+  weight = 30
+
+[[main]]
+  name = "Podcast"
+  pageRef = "podcast"
+  weight = 40
+
+[[main]]
+  identifier = "search"
+  weight = 99
+  [main.params]
+    action = "search"
+
+[[main]]
+  name = "European Politics"
+  parent = "categories"
+  pageRef = "categories/european-politics"
+  weight = 21
+
+[[main]]
+  name = "Energy and Geopolitics"
+  parent = "categories"
+  pageRef = "categories/energy-and-geopolitics"
+  weight = 22
