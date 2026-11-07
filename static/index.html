@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>欧元区数据看板 · wyz.name</title>
+<script src="/static/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0d0b14;--card:#17131f;--line:#2a2335;--fg:#ece8f3;--mut:#9d93ad;--a:#e05cf0;--b:#22d3ee;--c:#facc15;--d:#4ade80}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Sans SC",sans-serif}
+header{max-width:1100px;margin:auto;padding:22px 16px 6px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+h1{font-size:22px;margin:0}h1 span{color:var(--a)}
+nav a,button{color:var(--mut);text-decoration:none;font-size:14px}
+button{background:none;border:1px solid var(--line);border-radius:999px;padding:4px 12px;cursor:pointer;margin-left:8px}button:hover{color:var(--fg)}
+main{max-width:1100px;margin:auto;padding:8px 16px 40px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0 18px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.kpi .l{color:var(--mut);font-size:13px}.kpi .v{font-size:26px;font-weight:700;margin-top:2px}.kpi .s{color:var(--mut);font-size:12px}
+h2{font-size:17px;margin:26px 0 8px;border-left:3px solid var(--a);padding-left:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 12px 6px}
+.card h3{font-size:14px;margin:0 0 6px;color:var(--mut);font-weight:500}
+.card canvas{width:100%!important;height:240px!important}
+footer{color:var(--mut);font-size:12px;max-width:1100px;margin:auto;padding:0 16px 30px}
+footer a{color:var(--b)}
+#err{color:var(--c);font-size:12px}
+.loading{color:var(--mut);padding:30px 0;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1 data-i="title">欧元区<span>数据看板</span></h1>
+  <nav><a href="https://wyz.name/" data-i="back">← 返回博客</a><button id="lang">EN</button></nav>
+</header>
+<main>
+  <div id="loading" class="loading" data-i="loading">正在载入数据…（休眠唤醒约需 10 秒）</div>
+  <div class="kpis" id="kpis"></div>
+  <h2 data-i="h_euro">欧元区</h2>
+  <div class="grid">
+    <div class="card"><h3 data-i="c_rates">欧央行政策利率（%）</h3><canvas id="c1"></canvas></div>
+    <div class="card"><h3 data-i="c_infl">HICP 通胀，同比（%）</h3><canvas id="c2"></canvas></div>
+    <div class="card"><h3 data-i="c_spread">10 年期国债对德国利差（个百分点）</h3><canvas id="c3"></canvas></div>
+  </div>
+  <h2 data-i="h_us">欧美对比</h2>
+  <div class="grid">
+    <div class="card"><h3 data-i="c_pol">政策利率：欧央行存款利率 vs 美联储上限（%）</h3><canvas id="c4"></canvas></div>
+    <div class="card"><h3 data-i="c_cpi">通胀：欧元区 HICP vs 美国 CPI，同比（%）</h3><canvas id="c5"></canvas></div>
+    <div class="card"><h3 data-i="c_10y">10 年期国债：美国 vs 德国（%）</h3><canvas id="c6"></canvas></div>
+    <div class="card"><h3 data-i="c_fx">欧元兑美元（月均）</h3><canvas id="c7"></canvas></div>
+  </div>
+</main>
+<footer>
+  <div><span data-i="src">数据来源</span>: <a href="https://data.ecb.europa.eu/">ECB Data Portal</a> <span data-i="src_ecb">（政策利率、HICP、长期利率、汇率）</span> · <a href="https://fred.stlouisfed.org/">FRED</a> <span data-i="src_fred">（联邦基金利率上限、CPI、10 年期美债）</span>. <span data-i="note">国债为月度均值；数据每 6 小时最多更新一次。</span></div>
+  <div><span data-i="upd">更新于</span> <span id="upd">—</span> <span id="err"></span></div>
+</footer>
+<script>
+const T={zh:{title:'欧元区<span>数据看板</span>',back:'← 返回博客',loading:'正在载入数据…（休眠唤醒约需 10 秒）',h_euro:'欧元区',h_us:'欧美对比',
+c_rates:'欧央行政策利率（%）',c_infl:'HICP 通胀，同比（%）',c_spread:'10 年期国债对德国利差（个百分点）',c_pol:'政策利率：欧央行存款利率 vs 美联储上限（%）',
+c_cpi:'通胀：欧元区 HICP vs 美国 CPI，同比（%）',c_10y:'10 年期国债：美国 vs 德国（%）',c_fx:'欧元兑美元（月均）',src:'数据来源',src_ecb:'（政策利率、HICP、长期利率、汇率）',src_fred:'（联邦基金利率上限、CPI、10 年期美债）',note:'国债为月度均值；数据每 6 小时最多更新一次。',upd:'更新于',
+k_dfr:'存款利率',k_hicp:'HICP 通胀',k_core:'核心通胀',k_meet:'下次议息',k_fx:'欧元/美元',k_fed:'美联储上限',days:'天后',dfr:'存款利率 DFR',mro:'主再融资 MRO',
+hicp:'HICP',core:'核心 HICP',target:'2% 目标',fr:'法国',it:'意大利',es:'西班牙',ea:'欧元区',us:'美国',de:'德国',fed:'美联储上限',ecb:'欧央行存款利率',fx:'欧元/美元',lang:'EN',err:'部分数据暂时取不到，显示的是上次缓存。'},
+en:{title:'Euro Area <span>Dashboard</span>',back:'← Back to blog',loading:'Loading data… (about 10 s if the app was asleep)',h_euro:'Euro area',h_us:'Euro area vs United States',
+c_rates:'ECB policy rates (%)',c_infl:'HICP inflation, y/y (%)',c_spread:'10-year spread over Germany (pp)',c_pol:'Policy rates: ECB deposit rate vs Fed upper bound (%)',
+c_cpi:'Inflation: euro area HICP vs US CPI, y/y (%)',c_10y:'10-year yields: US vs Germany (%)',c_fx:'EUR/USD (monthly average)',src:'Sources',src_ecb:'(policy rates, HICP, long-term yields, exchange rates)',src_fred:'(Fed funds upper bound, CPI, 10-year Treasury)',note:'Bond yields are monthly averages; data refreshes at most every 6 hours.',upd:'Updated',
+k_dfr:'Deposit rate',k_hicp:'HICP inflation',k_core:'Core inflation',k_meet:'Next ECB meeting',k_fx:'EUR/USD',k_fed:'Fed upper bound',days:'days',dfr:'Deposit rate (DFR)',mro:'Main refi (MRO)',
+hicp:'HICP',core:'Core HICP',target:'2% target',fr:'France',it:'Italy',es:'Spain',ea:'Euro area',us:'United States',de:'Germany',fed:'Fed upper bound',ecb:'ECB deposit rate',fx:'EUR/USD',lang:'中文',err:'Some series are temporarily unavailable; showing cached values.'}};
+let lang=(new URLSearchParams(location.search).get('lang')||localStorage.getItem('lang')||(navigator.language.startsWith('zh')?'zh':'en'));
+let D=null,charts=[];
+const C={a:'#e05cf0',b:'#22d3ee',c:'#facc15',d:'#4ade80',m:'#9d93ad'};
+Chart.defaults.color='#9d93ad';Chart.defaults.borderColor='#2a2335';Chart.defaults.font.size=11;
+const last=s=>s&&s.length?s[s.length-1]:null;
+function align(a,b,f){const m=Object.fromEntries(b);return a.filter(([d])=>d in m).map(([d,v])=>[d,+(f(v,m[d])).toFixed(2)])}
+function line(id,sets,opts={}){const labels=[...new Set(sets.flatMap(s=>s.data.map(p=>p[0])))].sort();
+ const ds=sets.map(s=>{const m=Object.fromEntries(s.data);return{label:s.label,data:labels.map(l=>m[l]??null),borderColor:s.color,backgroundColor:s.color,borderWidth:s.dash?1:2,borderDash:s.dash||[],pointRadius:0,stepped:s.step||false,spanGaps:true,tension:0}});
+ charts.push(new Chart(document.getElementById(id),{type:'line',data:{labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+ plugins:{legend:{labels:{boxWidth:10,boxHeight:2}}},scales:{x:{ticks:{maxTicksLimit:6}},y:{ticks:{maxTicksLimit:6}}},...opts}}))}
+function kpi(l,v,s){return `<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div><div class="s">${s||''}</div></div>`}
+function render(){const t=T[lang];document.documentElement.lang=lang==='zh'?'zh-CN':'en';
+ document.querySelectorAll('[data-i]').forEach(e=>{const k=e.dataset.i;if(t[k])e.innerHTML=t[k]});document.getElementById('lang').textContent=t.lang;
+ document.title=(lang==='zh'?'欧元区数据看板':'Euro Area Dashboard')+' · wyz.name';
+ if(!D)return;const S=D.series;charts.forEach(c=>c.destroy());charts=[];
+ const today=new Date().toISOString().slice(0,10);const nm=D.meetings.find(d=>d>=today);
+ const nd=nm?Math.ceil((new Date(nm)-new Date(today))/864e5):null;
+ const f=(s,n=2)=>{const p=last(S[s]);return p?[p[1].toFixed(n)+'%',p[0]]:['—','']};
+ const [dv,dd]=f('dfr'),[hv,hd]=f('hicp',1),[cv,cd]=f('core',1),[fv,fd]=f('fed');const fx=last(S.eurusd_d);
+ document.getElementById('kpis').innerHTML=kpi(t.k_dfr,dv,dd)+kpi(t.k_hicp,hv,hd)+kpi(t.k_core,cv,cd)+
+  kpi(t.k_meet,nd!==null?(lang==='zh'?nd+' '+t.days:nd+' '+t.days):'—',nm||'')+kpi(t.k_fx,fx?fx[1].toFixed(4):'—',fx?fx[0]:'')+kpi(t.k_fed,fv,fd);
+ line('c1',[{label:t.dfr,data:S.dfr||[],color:C.a,step:true},{label:t.mro,data:S.mro||[],color:C.b,step:true}]);
+ const tgt=(S.hicp||[]).map(([d])=>[d,2]);
+ line('c2',[{label:t.hicp,data:S.hicp||[],color:C.a},{label:t.core,data:S.core||[],color:C.b},{label:t.target,data:tgt,color:C.m,dash:[4,4]}]);
+ const de=S.y_de||[];line('c3',[{label:t.fr,data:align(S.y_fr||[],de,(a,b)=>a-b),color:C.b},{label:t.it,data:align(S.y_it||[],de,(a,b)=>a-b),color:C.d},{label:t.es,data:align(S.y_es||[],de,(a,b)=>a-b),color:C.c}]);
+ line('c4',[{label:t.ecb,data:S.dfr||[],color:C.a,step:true},{label:t.fed,data:S.fed||[],color:C.b,step:true}]);
+ line('c5',[{label:t.ea,data:S.hicp||[],color:C.a},{label:t.us,data:S.us_cpi||[],color:C.b},{label:t.target,data:tgt,color:C.m,dash:[4,4]}]);
+ line('c6',[{label:t.us,data:S.ust10||[],color:C.b},{label:t.de,data:de,color:C.a}]);
+ line('c7',[{label:t.fx,data:S.eurusd||[],color:C.c}],{plugins:{legend:{display:false}}});
+ document.getElementById('upd').textContent=D.updated;document.getElementById('err').textContent=D.errors&&D.errors.length?t.err:'';}
+document.getElementById('lang').onclick=()=>{lang=lang==='zh'?'en':'zh';localStorage.setItem('lang',lang);render()};
+render();
+fetch('/api/data').then(r=>r.json()).then(d=>{D=d;document.getElementById('loading').style.display='none';render()}).catch(e=>{document.getElementById('loading').textContent='⚠ '+e});
+</script>
+</body>
+</html>
