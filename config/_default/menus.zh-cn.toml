@@ -48,3 +48,10 @@
   name = "播客"
   pageRef = "podcast"
   weight = 40
+
+[[main]]
+  name = "数据"
+  url = "https://euro.andy.prod.page/?lang=zh"
+  weight = 45
+  [main.params]
+    target = "_blank"

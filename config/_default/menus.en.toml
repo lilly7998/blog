@@ -36,3 +36,10 @@
   parent = "categories"
   pageRef = "categories/energy-and-geopolitics"
   weight = 22
+
+[[main]]
+  name = "Data"
+  url = "https://euro.andy.prod.page/?lang=en"
+  weight = 45
+  [main.params]
+    target = "_blank"
