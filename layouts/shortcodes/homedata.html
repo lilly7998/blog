@@ -1,0 +1,56 @@
+{{- $zh := ne .Page.Language.Lang "en" -}}
+<div id="homedata" class="not-prose" data-lang="{{ if $zh }}zh{{ else }}en{{ end }}" style="text-align:left;margin:0 auto 1.5rem;max-width:56rem">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.5rem;margin-bottom:.6rem">
+    <div style="font-weight:700;font-size:1.05rem">{{ if $zh }}数据速览{{ else }}Data at a glance{{ end }}</div>
+    <div style="font-size:.8rem;opacity:.75">
+      <a href="https://euro.andy.prod.page/?lang={{ if $zh }}zh{{ else }}en{{ end }}" target="_blank" rel="noopener">{{ if $zh }}欧元区看板{{ else }}Euro area{{ end }} →</a>
+      &nbsp;
+      <a href="https://dollar.andy.prod.page/?lang={{ if $zh }}zh{{ else }}en{{ end }}" target="_blank" rel="noopener">{{ if $zh }}美元看板{{ else }}US dollar{{ end }} →</a>
+    </div>
+  </div>
+  <div class="hd-kpis" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(8.5rem,1fr));gap:.5rem"></div>
+  <div class="hd-charts" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));gap:.5rem;margin-top:.5rem"></div>
+  <div class="hd-status" style="font-size:.75rem;opacity:.7;margin-top:.4rem">{{ if $zh }}正在载入数据…（看板休眠时约需 10 秒）{{ else }}Loading data… (about 10 s if the dashboards are asleep){{ end }}</div>
+</div>
+<script>
+(function(){
+  const root=document.getElementById('homedata');if(!root)return;
+  const zh=root.dataset.lang==='zh';
+  const L=zh?{dfr:'欧央行存款利率',fed:'联邦基金区间',hicp:'欧元区 HICP',cpi:'美国 CPI',nfp:'美国非农新增',bund:'德国 10 年期',ust:'美国 10 年期',eur:'欧元兑美元',
+    c1:'政策利率（%）',c2:'通胀，同比（%）',ecb:'欧央行',fedl:'美联储',ea:'欧元区',us:'美国',src:'数据：ECB、FRED',fail:'数据暂时取不到，请稍后刷新。',k:' 千'}
+   :{dfr:'ECB deposit rate',fed:'Fed funds range',hicp:'Euro area HICP',cpi:'US CPI',nfp:'US payrolls',bund:'German 10y',ust:'US 10y',eur:'EUR/USD',
+    c1:'Policy rates (%)',c2:'Inflation, y/y (%)',ecb:'ECB',fedl:'Fed',ea:'Euro area',us:'US',src:'Data: ECB, FRED',fail:'Data unavailable right now; please refresh later.',k:'k'};
+  const card='border:1px solid rgba(127,127,127,.25);border-radius:.6rem;padding:.55rem .7rem;background:rgba(127,127,127,.07)';
+  const last=s=>s&&s.length?s[s.length-1]:null;
+  const kpi=(l,v,d)=>`<div style="${card}"><div style="font-size:.72rem;opacity:.75">${l}</div><div style="font-size:1.25rem;font-weight:700;line-height:1.3">${v}</div><div style="font-size:.68rem;opacity:.6">${d||''}</div></div>`;
+  function spark(title,sets){
+    const W=320,H=110,P=4;const all=sets.flatMap(s=>s.data.map(p=>p[1]));if(!all.length)return '';
+    const lo=Math.min(...all),hi=Math.max(...all),n=Math.max(...sets.map(s=>s.data.length));
+    const path=s=>s.data.map((p,i)=>`${i?'L':'M'}${(P+(W-2*P)*(i+n-s.data.length)/(n-1)).toFixed(1)},${(H-P-(H-2*P)*(p[1]-lo)/((hi-lo)||1)).toFixed(1)}`).join('');
+    const leg=sets.map(s=>{const l=last(s.data);return `<span style="color:${s.c};white-space:nowrap">● ${s.l} ${l?l[1].toFixed(2):''}</span>`}).join(' &nbsp;');
+    const first=sets[0].data[0][0],end=last(sets[0].data)[0];
+    return `<div style="${card}"><div style="font-size:.78rem;font-weight:600">${title}</div><div style="font-size:.72rem;margin:.15rem 0">${leg}</div>
+      <svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" preserveAspectRatio="none">${sets.map(s=>`<path d="${path(s)}" fill="none" stroke="${s.c}" stroke-width="2" vector-effect="non-scaling-stroke"/>`).join('')}</svg>
+      <div style="display:flex;justify-content:space-between;font-size:.65rem;opacity:.6"><span>${first}</span><span>${end}</span></div></div>`;
+  }
+  const get=u=>fetch(u).then(r=>{if(!r.ok)throw r.status;return r.json()});
+  Promise.allSettled([get('https://euro.andy.prod.page/api/data'),get('https://dollar.andy.prod.page/api/data')]).then(([e,u])=>{
+    const E=e.status==='fulfilled'?e.value.series:null,U=u.status==='fulfilled'?u.value.series:null;
+    const st=root.querySelector('.hd-status');if(!E&&!U){st.textContent=L.fail;return}
+    let k='';const f=(s,n,u='%')=>{const p=last(s);return p?[p[1].toFixed(n)+u,p[0]]:null};
+    const add=(l,r)=>{if(r)k+=kpi(l,r[0],r[1])};
+    if(E){add(L.dfr,f(E.dfr,2))}
+    if(U){const h=last(U.fed_hi),o=last(U.fed_lo);if(h&&o)k+=kpi(L.fed,o[1].toFixed(2)+'–'+h[1].toFixed(2)+'%',h[0])}
+    if(E)add(L.hicp,f(E.hicp,1));
+    if(U){add(L.cpi,f(U.cpi,1));const nf=last(U.nfp);if(nf)k+=kpi(L.nfp,(nf[1]>0?'+':'')+Math.round(nf[1])+L.k,nf[0])}
+    if(E)add(L.bund,f(E.y_de,2));
+    if(U)add(L.ust,f(U.t10_d,2));
+    if(E)add(L.eur,f(E.eurusd_d,4,''));
+    root.querySelector('.hd-kpis').innerHTML=k;
+    if(E){const t=s=>(s||[]).slice(-60);
+      root.querySelector('.hd-charts').innerHTML=spark(L.c1,[{l:L.ecb,data:t(E.dfr),c:'#e05cf0'},{l:L.fedl,data:t(E.fed),c:'#22d3ee'}])+
+        spark(L.c2,[{l:L.ea,data:t(E.hicp),c:'#e05cf0'},{l:L.us,data:t(E.us_cpi),c:'#22d3ee'}]);}
+    st.textContent=L.src;
+  });
+})();
+</script>

@@ -39,7 +39,17 @@
 
 [[main]]
   name = "Data"
-  url = "https://euro.andy.prod.page/?lang=en"
+  identifier = "data"
   weight = 45
-  [main.params]
-    target = "_blank"
+
+[[main]]
+  name = "Euro Area Dashboard"
+  parent = "data"
+  url = "https://euro.andy.prod.page/?lang=en"
+  weight = 46
+
+[[main]]
+  name = "US Dollar Dashboard"
+  parent = "data"
+  url = "https://dollar.andy.prod.page/?lang=en"
+  weight = 47
