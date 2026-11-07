@@ -3,3 +3,4 @@ resources/
 .hugo_build.lock
 
 dashboard/__pycache__/
+usd/__pycache__/

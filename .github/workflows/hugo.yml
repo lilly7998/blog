@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths-ignore:
       - 'dashboard/**'
+      - 'usd/**'
   workflow_dispatch:
 permissions:
   contents: read
