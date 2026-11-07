@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>美元数据看板 · wyz.name</title>
+<script src="/static/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0d0b14;--card:#17131f;--line:#2a2335;--fg:#ece8f3;--mut:#9d93ad;--a:#e05cf0;--b:#22d3ee;--c:#facc15;--d:#4ade80}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Noto Sans SC",sans-serif}
+header{max-width:1100px;margin:auto;padding:22px 16px 6px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+h1{font-size:22px;margin:0}h1 span{color:var(--a)}
+nav a,button{color:var(--mut);text-decoration:none;font-size:14px}
+button{background:none;border:1px solid var(--line);border-radius:999px;padding:4px 12px;cursor:pointer;margin-left:8px}button:hover{color:var(--fg)}
+main{max-width:1100px;margin:auto;padding:8px 16px 40px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0 18px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.kpi .l{color:var(--mut);font-size:13px}.kpi .v{font-size:26px;font-weight:700;margin-top:2px}.kpi .s{color:var(--mut);font-size:12px}
+h2{font-size:17px;margin:26px 0 8px;border-left:3px solid var(--a);padding-left:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 12px 6px}
+.card h3{font-size:14px;margin:0 0 6px;color:var(--mut);font-weight:500}
+.card canvas{width:100%!important;height:240px!important}
+footer{color:var(--mut);font-size:12px;max-width:1100px;margin:auto;padding:0 16px 30px}
+footer a{color:var(--b)}
+#err{color:var(--c);font-size:12px}
+.loading{color:var(--mut);padding:30px 0;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1 data-i="title">美元<span>数据看板</span></h1>
+  <nav><a href="https://wyz.name/" data-i="back">← 返回博客</a><button id="lang">EN</button></nav>
+</header>
+<main>
+  <div id="loading" class="loading" data-i="loading">正在载入数据…（休眠唤醒约需 10 秒）</div>
+  <div class="kpis" id="kpis"></div>
+  <h2 data-i="h_fx">美元走势</h2>
+  <div class="grid">
+    <div class="card"><h3 data-i="c_dxy">美元指数（美联储广义名义，月均）</h3><canvas id="c1"></canvas></div>
+    <div class="card"><h3 data-i="c_fx">美元兑人民币 / 日元（月均）</h3><canvas id="c2"></canvas></div>
+  </div>
+  <h2 data-i="h_rates">美联储与美债</h2>
+  <div class="grid">
+    <div class="card"><h3 data-i="c_fed">联邦基金利率目标区间与有效利率（%）</h3><canvas id="c3"></canvas></div>
+    <div class="card"><h3 data-i="c_ust">美债收益率：2 年 / 10 年 / 30 年（%，月均）</h3><canvas id="c4"></canvas></div>
+    <div class="card"><h3 data-i="c_curve">收益率曲线：10 年减 2 年（个百分点）</h3><canvas id="c5"></canvas></div>
+  </div>
+  <h2 data-i="h_jobs">就业</h2>
+  <div class="grid">
+    <div class="card"><h3 data-i="c_nfp">非农新增就业（千人，近 3 年）</h3><canvas id="c6"></canvas></div>
+    <div class="card"><h3 data-i="c_un">失业率（%）</h3><canvas id="c7"></canvas></div>
+  </div>
+  <h2 data-i="h_infl">通胀</h2>
+  <div class="grid">
+    <div class="card"><h3 data-i="c_cpi">CPI 与 PCE 物价，同比（%）</h3><canvas id="c8"></canvas></div>
+  </div>
+  <h2 data-i="h_cons">消费与增长</h2>
+  <div class="grid">
+    <div class="card"><h3 data-i="c_spend">零售销售与个人消费支出，同比（%）</h3><canvas id="c9"></canvas></div>
+    <div class="card"><h3 data-i="c_sent">密歇根大学消费者信心指数</h3><canvas id="c10"></canvas></div>
+    <div class="card"><h3 data-i="c_gdp">实际 GDP，环比折年（%，近 5 年）</h3><canvas id="c11"></canvas></div>
+  </div>
+</main>
+<footer>
+  <div><span data-i="src">数据来源</span>: <a href="https://fred.stlouisfed.org/">FRED</a> <span data-i="src_fred">（圣路易斯联储；原始数据来自美联储、劳工统计局、经济分析局、商务部、密歇根大学）</span>. <span data-i="note">数据每 6 小时最多更新一次；美元指数为美联储广义名义指数，不是 ICE 的 DXY。</span></div>
+  <div><span data-i="upd">更新于</span> <span id="upd">—</span> <span id="err"></span></div>
+</footer>
+<script>
+const T={zh:{title:'美元<span>数据看板</span>',back:'← 返回博客',loading:'正在载入数据…（休眠唤醒约需 10 秒）',h_fx:'美元走势',h_rates:'美联储与美债',h_jobs:'就业',h_infl:'通胀',h_cons:'消费与增长',
+c_dxy:'美元指数（美联储广义名义，月均）',c_fx:'美元兑人民币 / 日元（月均）',c_fed:'联邦基金利率目标区间与有效利率（%）',c_ust:'美债收益率：2 年 / 10 年 / 30 年（%，月均）',c_curve:'收益率曲线：10 年减 2 年（个百分点）',
+c_nfp:'非农新增就业（千人，近 3 年）',c_un:'失业率（%）',c_cpi:'CPI 与 PCE 物价，同比（%）',c_spend:'零售销售与个人消费支出，同比（%）',c_sent:'密歇根大学消费者信心指数',c_gdp:'实际 GDP，环比折年（%，近 5 年）',
+src:'数据来源',src_fred:'（圣路易斯联储；原始数据来自美联储、劳工统计局、经济分析局、商务部、密歇根大学）',note:'数据每 6 小时最多更新一次；美元指数为美联储广义名义指数，不是 ICE 的 DXY。',upd:'更新于',
+k_fed:'联邦基金区间',k_meet:'下次议息',k_nfp:'非农新增',k_un:'失业率',k_cpi:'CPI 同比',k_pce:'核心 PCE',k_t10:'10 年美债',k_dxy:'美元指数',days:'天后',k_unit:'千人',
+dxy:'美元指数',cny:'人民币',jpy:'日元（右轴）',hi:'目标上限',lo:'目标下限',effr:'有效利率',t2:'2 年',t10:'10 年',t30:'30 年',curve:'10 年 − 2 年',nfp:'非农新增',un:'失业率',
+cpi:'CPI',ccpi:'核心 CPI',pce:'PCE',cpce:'核心 PCE',target:'2% 目标',retail:'零售销售',spend:'个人消费支出',sent:'消费者信心',gdp:'实际 GDP',lang:'EN',err:'部分数据暂时取不到，显示的是上次缓存。'},
+en:{title:'US Dollar <span>Dashboard</span>',back:'← Back to blog',loading:'Loading data… (about 10 s if the app was asleep)',h_fx:'The dollar',h_rates:'Fed and Treasuries',h_jobs:'Jobs',h_infl:'Inflation',h_cons:'Consumers and growth',
+c_dxy:'Dollar index (Fed nominal broad, monthly avg)',c_fx:'USD/CNY and USD/JPY (monthly avg)',c_fed:'Fed funds target range and effective rate (%)',c_ust:'Treasury yields: 2y / 10y / 30y (%, monthly avg)',c_curve:'Yield curve: 10y minus 2y (pp)',
+c_nfp:'Nonfarm payrolls, monthly change (thousands, last 3 years)',c_un:'Unemployment rate (%)',c_cpi:'CPI and PCE prices, y/y (%)',c_spend:'Retail sales and personal consumption, y/y (%)',c_sent:'University of Michigan consumer sentiment',c_gdp:'Real GDP, q/q annualized (%, last 5 years)',
+src:'Source',src_fred:'(St. Louis Fed; underlying data from the Federal Reserve, BLS, BEA, Census Bureau, University of Michigan)',note:'Data refreshes at most every 6 hours; the dollar index is the Fed nominal broad index, not ICE DXY.',upd:'Updated',
+k_fed:'Fed funds range',k_meet:'Next FOMC',k_nfp:'Payrolls',k_un:'Unemployment',k_cpi:'CPI y/y',k_pce:'Core PCE',k_t10:'10-year yield',k_dxy:'Dollar index',days:'days',k_unit:'k',
+dxy:'Dollar index',cny:'CNY',jpy:'JPY (right axis)',hi:'Upper bound',lo:'Lower bound',effr:'Effective rate',t2:'2-year',t10:'10-year',t30:'30-year',curve:'10y − 2y',nfp:'Payrolls',un:'Unemployment',
+cpi:'CPI',ccpi:'Core CPI',pce:'PCE',cpce:'Core PCE',target:'2% target',retail:'Retail sales',spend:'Personal consumption',sent:'Sentiment',gdp:'Real GDP',lang:'中文',err:'Some series are temporarily unavailable; showing cached values.'}};
+let lang=(new URLSearchParams(location.search).get('lang')||localStorage.getItem('lang')||(navigator.language.startsWith('zh')?'zh':'en'));
+let D=null,charts=[];
+const C={a:'#e05cf0',b:'#22d3ee',c:'#facc15',d:'#4ade80',e:'#fb923c',m:'#9d93ad'};
+Chart.defaults.color='#9d93ad';Chart.defaults.borderColor='#2a2335';Chart.defaults.font.size=11;
+const last=s=>s&&s.length?s[s.length-1]:null;
+const tail=(s,n)=>(s||[]).slice(-n);
+function chart(id,sets,o={}){const labels=[...new Set(sets.flatMap(s=>s.data.map(p=>p[0])))].sort();
+ const ds=sets.map(s=>{const m=Object.fromEntries(s.data);const d={type:s.bar?'bar':'line',label:s.label,data:labels.map(l=>m[l]??null),borderColor:s.color,backgroundColor:s.bar?labels.map(l=>(m[l]??0)<0?'#f87171':s.color):s.color,
+  borderWidth:s.dash?1:2,borderDash:s.dash||[],pointRadius:0,stepped:s.step||false,spanGaps:true,tension:0,yAxisID:s.y2?'y2':'y'};return d});
+ const scales={x:{ticks:{maxTicksLimit:6}},y:{ticks:{maxTicksLimit:6}}};if(sets.some(s=>s.y2))scales.y2={position:'right',grid:{drawOnChartArea:false},ticks:{maxTicksLimit:6}};
+ charts.push(new Chart(document.getElementById(id),{data:{labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+ plugins:{legend:{display:o.legend!==false,labels:{boxWidth:10,boxHeight:2}}},scales}}))}
+function kpi(l,v,s){return `<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div><div class="s">${s||''}</div></div>`}
+function render(){const t=T[lang];document.documentElement.lang=lang==='zh'?'zh-CN':'en';
+ document.querySelectorAll('[data-i]').forEach(e=>{const k=e.dataset.i;if(t[k])e.innerHTML=t[k]});document.getElementById('lang').textContent=t.lang;
+ document.title=(lang==='zh'?'美元数据看板':'US Dollar Dashboard')+' · wyz.name';
+ if(!D)return;const S=D.series;charts.forEach(c=>c.destroy());charts=[];
+ const today=new Date().toISOString().slice(0,10);const nm=D.meetings.find(d=>d>=today);
+ const nd=nm?Math.ceil((new Date(nm)-new Date(today))/864e5):null;
+ const v=(s,n,u='%')=>{const p=last(S[s]);return p?[p[1].toFixed(n)+u,p[0]]:['—','']};
+ const hi=last(S.fed_hi),lo=last(S.fed_lo),nf=last(S.nfp);
+ const [uv,ud]=v('unrate',1),[cv,cd]=v('cpi',1),[pv,pd]=v('core_pce',1),[tv,td]=v('t10_d',2),[xv,xd]=v('dxy_d',1,'');
+ document.getElementById('kpis').innerHTML=kpi(t.k_fed,hi&&lo?lo[1].toFixed(2)+'–'+hi[1].toFixed(2)+'%':'—',hi?hi[0]:'')+kpi(t.k_meet,nd!==null?nd+' '+t.days:'—',nm||'')+
+  kpi(t.k_nfp,nf?(nf[1]>0?'+':'')+Math.round(nf[1])+(lang==='zh'?' 千':'k'):'—',nf?nf[0]:'')+kpi(t.k_un,uv,ud)+kpi(t.k_cpi,cv,cd)+kpi(t.k_pce,pv,pd)+kpi(t.k_t10,tv,td)+kpi(t.k_dxy,xv,xd);
+ chart('c1',[{label:t.dxy,data:S.dxy||[],color:C.c}],{legend:false});
+ chart('c2',[{label:t.cny,data:S.cny||[],color:C.a},{label:t.jpy,data:S.jpy||[],color:C.b,y2:true}]);
+ chart('c3',[{label:t.hi,data:S.fed_hi||[],color:C.a,step:true},{label:t.lo,data:S.fed_lo||[],color:C.a,step:true,dash:[4,3]},{label:t.effr,data:S.effr||[],color:C.b}]);
+ chart('c4',[{label:t.t2,data:S.t2||[],color:C.b},{label:t.t10,data:S.t10||[],color:C.a},{label:t.t30,data:S.t30||[],color:C.c}]);
+ chart('c5',[{label:t.curve,data:S.curve||[],color:C.d}],{legend:false});
+ chart('c6',[{label:t.nfp,data:tail(S.nfp,36),color:C.b,bar:true}],{legend:false});
+ chart('c7',[{label:t.un,data:S.unrate||[],color:C.e}],{legend:false});
+ const tgt=(S.cpi||[]).map(([d])=>[d,2]);
+ chart('c8',[{label:t.cpi,data:S.cpi||[],color:C.a},{label:t.ccpi,data:S.core_cpi||[],color:C.b},{label:t.pce,data:S.pce||[],color:C.c},{label:t.cpce,data:S.core_pce||[],color:C.d},{label:t.target,data:tgt,color:C.m,dash:[4,4]}]);
+ chart('c9',[{label:t.retail,data:S.retail||[],color:C.a},{label:t.spend,data:S.spend||[],color:C.b}]);
+ chart('c10',[{label:t.sent,data:S.sent||[],color:C.c}],{legend:false});
+ chart('c11',[{label:t.gdp,data:tail(S.gdp,20),color:C.d,bar:true}],{legend:false});
+ document.getElementById('upd').textContent=D.updated;document.getElementById('err').textContent=D.errors&&D.errors.length?t.err:'';}
+document.getElementById('lang').onclick=()=>{lang=lang==='zh'?'en':'zh';localStorage.setItem('lang',lang);render()};
+render();
+fetch('/api/data').then(r=>r.json()).then(d=>{D=d;document.getElementById('loading').style.display='none';render()}).catch(e=>{document.getElementById('loading').textContent='⚠ '+e});
+</script>
+</body>
+</html>
