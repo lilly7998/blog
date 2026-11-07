@@ -4,6 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 FRED = "https://fred.stlouisfed.org/graph/fredgraph.csv?id="
 START = "2015-01-01"
@@ -173,6 +174,8 @@ def load():
 
 
 app = FastAPI(docs_url=None, redoc_url=None)
+# The blog homepage (wyz.name) reads /api/data for its data strip.
+app.add_middleware(CORSMiddleware, allow_origins=["https://wyz.name", "https://www.wyz.name", "http://localhost:1313"], allow_methods=["GET"])
 app.mount("/static", StaticFiles(directory=os.path.join(HERE, "static")), name="static")
 
 
