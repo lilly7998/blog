@@ -52,16 +52,7 @@
 [[main]]
   name = "数据"
   identifier = "data"
+  pageRef = "data"
   weight = 45
 
-[[main]]
-  name = "欧元区看板"
-  parent = "data"
-  url = "https://euro.andy.prod.page/?lang=zh"
-  weight = 46
 
-[[main]]
-  name = "美元看板"
-  parent = "data"
-  url = "https://dollar.andy.prod.page/?lang=zh"
-  weight = 47

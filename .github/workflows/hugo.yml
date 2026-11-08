@@ -6,6 +6,8 @@ on:
       - 'dashboard/**'
       - 'usd/**'
   workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'   # refresh the cached dashboard data
 permissions:
   contents: read
   pages: write
@@ -32,6 +34,15 @@ jobs:
           fetch-depth: 0
       - id: pages
         uses: actions/configure-pages@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Refresh cached data (keeps the last good copy on failure)
+        continue-on-error: true
+        timeout-minutes: 5
+        run: |
+          pip install -q fastapi
+          python tools/datacache.py
       - name: Build
         env:
           HUGO_ENVIRONMENT: production

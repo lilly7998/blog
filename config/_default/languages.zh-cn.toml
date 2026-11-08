@@ -9,12 +9,12 @@ title = "Andy 的博客"
   isoCode = "zh-CN"
   rtl = false
   dateFormat = "2006年1月2日"
-  description = "欧洲经济、政治与日常"
+  description = "看世界，品人生"
   copyright = "© 2026 Andy"
 
 [params.author]
   name = "Andy"
-  headline = "欧洲经济、政治与日常"
+  headline = "看世界，品人生"
   links = [
     { email = "mailto:andy@wyz.name" },
     { github = "https://github.com/lilly7998" },

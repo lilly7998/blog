@@ -9,12 +9,12 @@ title = "Andy's Blog"
   isoCode = "en"
   rtl = false
   dateFormat = "2 January 2006"
-  description = "European economics, politics and everyday life"
+  description = "Seeing the world, savouring life"
   copyright = "© 2026 Andy"
 
 [params.author]
   name = "Andy"
-  headline = "European economics, politics and everyday life"
+  headline = "Seeing the world, savouring life"
   links = [
     { email = "mailto:andy@wyz.name" },
     { github = "https://github.com/lilly7998" },

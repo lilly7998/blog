@@ -1,0 +1,40 @@
+{{- $zh := ne .Page.Language.Lang "en" -}}
+<div id="datapage" class="not-prose" data-lang="{{ if $zh }}zh{{ else }}en{{ end }}" data-base="{{ "/" | relURL }}" style="text-align:left">
+  <div class="dp-status" style="font-size:.78rem;opacity:.75;margin-bottom:.6rem">{{ if $zh }}载入中…{{ else }}Loading…{{ end }}</div>
+  <div class="dp-kpis" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(8.5rem,1fr));gap:.5rem"></div>
+  <div class="dp-meet" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(12rem,1fr));gap:.5rem;margin-top:.5rem"></div>
+  <div class="dp-charts" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:.6rem;margin-top:.6rem"></div>
+  <div style="font-size:.75rem;opacity:.65;margin-top:1rem">
+    {{ if $zh }}想看可交互的实时版：{{ else }}Interactive live versions: {{ end }}
+    <a href="https://euro.andy.prod.page/?lang={{ if $zh }}zh{{ else }}en{{ end }}" target="_blank" rel="noopener">{{ if $zh }}欧元区看板{{ else }}Euro area dashboard{{ end }}</a> ·
+    <a href="https://dollar.andy.prod.page/?lang={{ if $zh }}zh{{ else }}en{{ end }}" target="_blank" rel="noopener">{{ if $zh }}美元看板{{ else }}US dollar dashboard{{ end }}</a>
+    {{ if $zh }}（服务器休眠时打开需等十几秒）{{ else }}(may take a few seconds to wake){{ end }}
+  </div>
+</div>
+<script src="{{ "js/datakit.js" | relURL }}"></script>
+<script>
+(function(){
+  const root=document.getElementById('datapage');if(!root||!window.DataKit)return;
+  const K=DataKit,L=K.T[root.dataset.lang],C=K.C;
+  K.load(root.dataset.base).then(([e,u])=>{
+    const E=e&&e.series,U=u&&u.series,st=root.querySelector('.dp-status');
+    if(!E&&!U){st.textContent=L.fail;return}
+    st.textContent=L.asof+' '+K.asof(e||u)+' · '+L.src;
+    root.querySelector('.dp-kpis').innerHTML=K.kpis(E,U,L);
+    const today=new Date().toISOString().slice(0,10);
+    const nx=(arr,who)=>{const d=(arr||[]).find(x=>x>=today);if(!d)return '';const n=Math.round((new Date(d)-new Date(today))/864e5);
+      return K.kpi(L.next+' · '+who,d,n+L.days)};
+    root.querySelector('.dp-meet').innerHTML=nx(e&&e.meetings,L.ecb)+nx(u&&u.meetings,L.fedl);
+    let h='';const o={h:130};
+    if(E){h+=K.chart(L.c_rates,[{l:L.ecb,data:E.dfr,c:C.eu},{l:L.fedl,data:E.fed,c:C.us}],o);
+      h+=K.chart(L.c_infl,[{l:L.ea,data:E.hicp,c:C.eu},{l:L.us,data:E.us_cpi,c:C.us}],{h:130,dec:1});
+      h+=K.chart(L.c_core,[{l:L.ea,data:E.core,c:C.eu},{l:L.us,data:E.us_core,c:C.us}],{h:130,dec:1});
+      h+=K.chart(L.c_y,[{l:L.de,data:E.y_de,c:C.a},{l:L.fr,data:E.y_fr,c:C.b},{l:L.it,data:E.y_it,c:C.c},{l:L.es,data:E.y_es,c:C.d},{l:L.us,data:E.ust10,c:C.e}],o);
+      h+=K.chart(L.c_fx,[{l:'EUR/USD',data:E.eurusd,c:C.eu}],{h:130,dec:3});}
+    if(U){h+=K.chart(L.c_dxy,[{l:'DTWEXBGS',data:U.dxy,c:C.us}],{h:130,dec:1});
+      h+=K.chart(L.c_un,[{l:L.us,data:U.unrate,c:C.us}],{h:130,dec:1});
+      h+=K.chart(L.c_curve,[{l:'10y−2y',data:U.curve,c:C.us}],o);}
+    root.querySelector('.dp-charts').innerHTML=h;
+  });
+})();
+</script>
