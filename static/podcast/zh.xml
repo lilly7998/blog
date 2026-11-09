@@ -15,6 +15,39 @@
   <itunes:type>episodic</itunes:type>
   <copyright>© 2026 Andy</copyright>
   <item>
+   <title>云上折腾记（三）：给 AI 安个家，再给它一双手</title>
+   <description>AI 有了家，就能随叫随到；有了工具，才能真正替你做事。 https://wyz.name/posts/cloud-notes-3-ai-home/</description>
+   <link>https://wyz.name/posts/cloud-notes-3-ai-home/</link>
+   <guid isPermaLink="false">wyz-cloud-notes-3-ai-home-zh</guid>
+   <pubDate>Mon, 09 Nov 2026 21:20:00 +0800</pubDate>
+   <enclosure url="https://wyz.name/posts/cloud-notes-3-ai-home/audio-zh.mp3" length="1567440" type="audio/mpeg"/>
+   <itunes:duration>261</itunes:duration>
+   <itunes:explicit>false</itunes:explicit>
+   <itunes:episodeType>full</itunes:episodeType>
+  </item>
+  <item>
+   <title>云上折腾记（二）：一台云端电脑，和几台爱睡觉的服务器</title>
+   <description>手机是遥控器，电脑在云上。免费机器很慷慨，但它们会睡觉，也有规矩。 https://wyz.name/posts/cloud-notes-2-cloud-computer/</description>
+   <link>https://wyz.name/posts/cloud-notes-2-cloud-computer/</link>
+   <guid isPermaLink="false">wyz-cloud-notes-2-cloud-computer-zh</guid>
+   <pubDate>Mon, 09 Nov 2026 21:10:00 +0800</pubDate>
+   <enclosure url="https://wyz.name/posts/cloud-notes-2-cloud-computer/audio-zh.mp3" length="1569456" type="audio/mpeg"/>
+   <itunes:duration>261</itunes:duration>
+   <itunes:explicit>false</itunes:explicit>
+   <itunes:episodeType>full</itunes:episodeType>
+  </item>
+  <item>
+   <title>云上折腾记（一）：一个域名，撑起一个小小的数字家园</title>
+   <description>从买下一个域名开始，邮箱、博客、播客和自动更新的数据，一样样搬了进来。 https://wyz.name/posts/cloud-notes-1-digital-home/</description>
+   <link>https://wyz.name/posts/cloud-notes-1-digital-home/</link>
+   <guid isPermaLink="false">wyz-cloud-notes-1-digital-home-zh</guid>
+   <pubDate>Mon, 09 Nov 2026 21:00:00 +0800</pubDate>
+   <enclosure url="https://wyz.name/posts/cloud-notes-1-digital-home/audio-zh.mp3" length="1556640" type="audio/mpeg"/>
+   <itunes:duration>259</itunes:duration>
+   <itunes:explicit>false</itunes:explicit>
+   <itunes:episodeType>full</itunes:episodeType>
+  </item>
+  <item>
    <title>期限，而非开关：中期选举之后的霍尔木兹海峡</title>
    <description>选举改变的是战争的期限，而不是特朗普手里的开关。未来两个月反而是风险最高的窗口。 https://wyz.name/posts/hormuz-after-midterms-2026/</description>
    <link>https://wyz.name/posts/hormuz-after-midterms-2026/</link>

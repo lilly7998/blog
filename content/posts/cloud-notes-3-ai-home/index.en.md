@@ -1,0 +1,70 @@
+---
+title: "Cloud Tinkering (3): A Home for an AI, Then a Pair of Hands"
+date: 2026-11-09T21:20:00+08:00
+draft: false
+description: "A personal AI assistant that lives in the cloud, plus a self-built AI toolbox: AI that doesn't just chat, but searches the web, takes screenshots and keeps an eye on pages for you."
+summary: "With a home, an AI is there whenever you call. With tools, it can actually get things done."
+categories: ["AI Tinkering Notes"]
+tags: ["AI Agents", "MCP", "AgentScope", "Free Cloud Services"]
+---
+
+The first two posts were about the "house" and the "computer". This one is about who lives inside: the AI.
+
+Everyone has used a chatbot. Open a web page, ask a question, get an answer, close the tab, and it has forgotten you. I wanted to try a different way: give the AI a fixed address so I can always find it, then give it a set of tools so it doesn't just talk, it acts.
+
+## Step one: a home for the AI
+
+On the [AgentScope platform](https://platform.agentscope.io), which specialises in hosting AI agents, I deployed the open-source personal AI assistant [QwenPaw](https://github.com/agentscope-ai/QwenPaw). Once deployed, it lives in the cloud with its own settings and memory, and I can talk to it by opening it on my phone.
+
+Behind it sits a Chinese large language model. And here's a very practical issue: every answer the AI gives costs compute, and the platform deducts it from my credits by usage. Of all my cloud resources, this is **the only one that really costs money per use**.
+
+So I picked the cheapest, fastest model tier. Cheap models handle everyday questions and organising notes just fine; for the really hard problems, I can switch to a bigger model later. I also set up a free model from [Kilo Code](https://kilocode.ai) as a backup channel in case the main one is down.
+
+This step made one thing clear to me: AI isn't "free magic", it's a service billed per call. Using it wisely matters more than using the most expensive one.
+
+## Step two: a pair of hands
+
+A home alone isn't enough. However clever an AI is, if it can't go online, read web pages or take notes, it can only answer from "memory", and that memory often stops months or even a year ago.
+
+There's an increasingly popular approach called [MCP](https://modelcontextprotocol.io) (Model Context Protocol). Think of it as a universal socket for the AI world: tools are made with a standard plug, and any AI that supports the standard can plug in and use them, with no custom adapter for each vendor.
+
+So on the cloud computer from the last post, I used [FastMCP](https://gofastmcp.com) to build my own AI toolbox. Right now these tools are plugged in:
+
+- **Fetch a page**: give it a URL and it reads back the main text;
+- **Search**: let the AI look things up online by itself;
+- **Screenshot**: open a page and bring back a picture;
+- **Read feeds**: see what a news source or blog has published lately;
+- **Watch a page**: register a page, and the next check tells me what changed. For example, the ECB's meeting calendar: any change gets spotted;
+- **Save and search notes**: the AI can store what it finds and dig it up later;
+- And the humblest one: tell the AI what time it is. Don't laugh. AI really doesn't know what time it is.
+
+![A standard socket with search, a camera, a notebook and an "eye" plugged in](toolhub.webp)
+
+## Security: the toolbox needs a lock
+
+Giving an AI a pair of hands also means someone else might borrow them. So the toolbox had two locks from day one: first get past the platform, then past the toolbox's own key.
+
+Tools like page fetching and screenshots have extra limits too: they can only reach the public internet, never the inside of the cloud computer or any private network. So even if someone tries to trick the AI into "peeking" where it shouldn't, the road is closed.
+
+## What it all means
+
+Looking back over the three posts, there's one thread:
+
+1. **A home**: a domain, a mailbox and a blog give me a place of my own online;
+2. **A computer**: borrowed computing power in the cloud lets someone with only a phone write code and crunch data;
+3. **A helper**: an always-on AI plus a self-built toolbox turns AI from "can chat" into "can get things done".
+
+Ten years ago, all of this would have taken either a lot of money or a technical team. Today an ordinary person can put it together with one phone, a pile of free credits and a bit of patience.
+
+Of course, none of it is perfect: machines sleep, credits run out, terms set limits. But that's exactly the fun of tinkering. You slowly learn what each piece can and can't do, then assemble a little system that fits you just right.
+
+That's it for this series for now. When there's new tinkering, I'll keep writing.
+
+## Copy my homework
+
+- Agent hosting: the [AgentScope platform](https://platform.agentscope.io); the framework is introduced at [agentscope.io](https://agentscope.io)
+- Personal AI assistant: [QwenPaw](https://github.com/agentscope-ai/QwenPaw)
+- Free backup model: [Kilo Code](https://kilocode.ai)
+- Tool protocol: [MCP](https://modelcontextprotocol.io)
+- Framework for the toolbox: [FastMCP](https://gofastmcp.com)
+- Where the toolbox runs: the [InstaBox](https://instabox.sh) cloud computer from the last post

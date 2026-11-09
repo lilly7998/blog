@@ -15,6 +15,39 @@
   <itunes:type>episodic</itunes:type>
   <copyright>© 2026 Andy</copyright>
   <item>
+   <title>Cloud Tinkering (3): A Home for an AI, Then a Pair of Hands</title>
+   <description>With a home, an AI is there whenever you call. With tools, it can actually get things done. https://wyz.name/posts/cloud-notes-3-ai-home/</description>
+   <link>https://wyz.name/posts/cloud-notes-3-ai-home/</link>
+   <guid isPermaLink="false">wyz-cloud-notes-3-ai-home-en</guid>
+   <pubDate>Mon, 09 Nov 2026 21:20:00 +0800</pubDate>
+   <enclosure url="https://wyz.name/posts/cloud-notes-3-ai-home/audio-en.mp3" length="1505376" type="audio/mpeg"/>
+   <itunes:duration>250</itunes:duration>
+   <itunes:explicit>false</itunes:explicit>
+   <itunes:episodeType>full</itunes:episodeType>
+  </item>
+  <item>
+   <title>Cloud Tinkering (2): A Computer in the Cloud, and a Few Servers That Love to Sleep</title>
+   <description>The phone is the remote; the computer is in the cloud. Free machines are generous, but they sleep, and they have rules. https://wyz.name/posts/cloud-notes-2-cloud-computer/</description>
+   <link>https://wyz.name/posts/cloud-notes-2-cloud-computer/</link>
+   <guid isPermaLink="false">wyz-cloud-notes-2-cloud-computer-en</guid>
+   <pubDate>Mon, 09 Nov 2026 21:10:00 +0800</pubDate>
+   <enclosure url="https://wyz.name/posts/cloud-notes-2-cloud-computer/audio-en.mp3" length="1567728" type="audio/mpeg"/>
+   <itunes:duration>261</itunes:duration>
+   <itunes:explicit>false</itunes:explicit>
+   <itunes:episodeType>full</itunes:episodeType>
+  </item>
+  <item>
+   <title>Cloud Tinkering (1): One Domain, One Small Digital Home</title>
+   <description>It started with buying a domain. Then the mailbox, the blog, the podcast and the self-updating data moved in, one by one. https://wyz.name/posts/cloud-notes-1-digital-home/</description>
+   <link>https://wyz.name/posts/cloud-notes-1-digital-home/</link>
+   <guid isPermaLink="false">wyz-cloud-notes-1-digital-home-en</guid>
+   <pubDate>Mon, 09 Nov 2026 21:00:00 +0800</pubDate>
+   <enclosure url="https://wyz.name/posts/cloud-notes-1-digital-home/audio-en.mp3" length="1553328" type="audio/mpeg"/>
+   <itunes:duration>258</itunes:duration>
+   <itunes:explicit>false</itunes:explicit>
+   <itunes:episodeType>full</itunes:episodeType>
+  </item>
+  <item>
    <title>A Deadline, Not a Switch: The Strait of Hormuz After the Midterms</title>
    <description>The election changed the war&#x27;s deadline, not Trump&#x27;s switch. The next two months may be the riskiest window for the Strait of Hormuz. https://wyz.name/posts/hormuz-after-midterms-2026/</description>
    <link>https://wyz.name/posts/hormuz-after-midterms-2026/</link>

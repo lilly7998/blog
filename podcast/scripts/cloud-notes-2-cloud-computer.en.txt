@@ -1,0 +1,29 @@
+Cloud Tinkering (2): A Computer in the Cloud, and a Few Servers That Love to Sleep.
+Day to day, all I have is a phone. A phone can do a lot, but some things it really can't: run a data analysis, write a few hundred lines of code, keep a small service running.
+The old answer was "buy a computer". Today's answer: borrow one in the cloud.
+A remote in your pocket, a computer in the cloud.
+I opened a free machine on the cloud computer service InstaBox: 4 CPU cores, 8 GB of memory and a 20 GB disk. That's better than a lot of old laptops sitting in people's homes.
+The best part is that everything opens in the phone's browser:
+A web version of VS Code (code-server) for writing code and editing files;.
+A Jupyter notebook for charts and data analysis. My first notebook pulled interest-rate and inflation data from the European Central Bank and drew them side by side;.
+Later, an "AI toolbox" on top of it, which gets its own post next time.
+The phone became the remote control, and the real work happens on the computer far away in the cloud. Wherever I go, the computer comes along.
+The price of free: it sleeps.
+There's no such thing as a completely free lunch. This cloud computer has two rules: it pauses itself after 30 minutes of idling, and even if you keep using it, it runs for at most 8 hours in a row.
+That bothered me at first, then it clicked: it was never meant to be a server on call 24 hours a day. It's a work computer that comes when you call. Wake it when you need it, let it rest when you're done. To cut the hassle, I set the programs I use to start on boot, so it's ready to go a few dozen seconds after waking.
+I also save important states as a "snapshot", a photo of the whole machine that lets me roll back with one click if I break something. The free plan keeps only 5, so each one has to count.
+Two dashboards on a small European cloud.
+Besides the cloud computer, I deployed two data dashboards on the small German platform blitz.cloud: one for the eurozone, one for the dollar. Open them and you get page after page of charts: rate paths, inflation, exchange rates, and a countdown to the next rate decision.
+Its free plan is generous too: 5 apps and a database thrown in. But it has an even more stubborn temper. An app falls asleep after 15 minutes without visitors, and only a real person opening it in a browser can wake it. When a program knocks, it doesn't answer.
+That explains the change from the last post: since the dashboards sleep, the blog stopped knocking on their door every time and now fetches data from the source itself every six hours. The dashboards stay, as a door for anyone who wants live detail.
+The rules of free machines.
+Along the way I also read these platforms' terms of service properly. Several spell it out clearly: free resources are for development, learning and small projects. No proxies, VPNs or other traffic relaying, no crypto mining, no abuse. Break the rules, and once automated detection spots it, the account is shut down.
+I think that's fair. If someone lends you a house for free, there have to be a few house rules. Reading terms looks boring, but it's what lets you stay on free resources for the long run.
+Next: tying the machines into one network.
+Lately I've been thinking about tools like Tailscale. It links devices scattered all over, like my phone and the cloud computer, into a private network only I can enter. Once connected, reaching a program on the cloud computer feels like reaching another device at home, without relying on a long temporary link every time.
+There's a free plan for personal use. As for hosting its "server side" myself, I weighed it against my pile of sleepy machines and decided not to bother for now.
+Looking back.
+Everything in this post boils down to one line: you can borrow computing power, but you need to learn its temper.
+A cloud computer lets someone with only a phone write code and run analysis. A few free servers give personal projects their own web addresses. They sleep, they have limits, they have rules. But for an ordinary person who likes to tinker, these are conditions nobody would have dared imagine ten years ago.
+Next time: the home I built for an AI, and how I gave it a pair of hands.
+All the platforms mentioned are linked in the list at the end of the post.

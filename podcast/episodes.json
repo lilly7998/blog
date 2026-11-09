@@ -16,5 +16,23 @@
   "zh_summary": "选举改变的是战争的期限，而不是特朗普手里的开关。未来两个月反而是风险最高的窗口。",
   "en_title": "A Deadline, Not a Switch: The Strait of Hormuz After the Midterms",
   "en_summary": "The election changed the war's deadline, not Trump's switch. The next two months may be the riskiest window for the Strait of Hormuz."
+ },
+ "cloud-notes-1-digital-home": {
+  "zh_title": "云上折腾记（一）：一个域名，撑起一个小小的数字家园",
+  "zh_summary": "从买下一个域名开始，邮箱、博客、播客和自动更新的数据，一样样搬了进来。",
+  "en_title": "Cloud Tinkering (1): One Domain, One Small Digital Home",
+  "en_summary": "It started with buying a domain. Then the mailbox, the blog, the podcast and the self-updating data moved in, one by one."
+ },
+ "cloud-notes-2-cloud-computer": {
+  "zh_title": "云上折腾记（二）：一台云端电脑，和几台爱睡觉的服务器",
+  "zh_summary": "手机是遥控器，电脑在云上。免费机器很慷慨，但它们会睡觉，也有规矩。",
+  "en_title": "Cloud Tinkering (2): A Computer in the Cloud, and a Few Servers That Love to Sleep",
+  "en_summary": "The phone is the remote; the computer is in the cloud. Free machines are generous, but they sleep, and they have rules."
+ },
+ "cloud-notes-3-ai-home": {
+  "zh_title": "云上折腾记（三）：给 AI 安个家，再给它一双手",
+  "zh_summary": "AI 有了家，就能随叫随到；有了工具，才能真正替你做事。",
+  "en_title": "Cloud Tinkering (3): A Home for an AI, Then a Pair of Hands",
+  "en_summary": "With a home, an AI is there whenever you call. With tools, it can actually get things done."
  }
 }

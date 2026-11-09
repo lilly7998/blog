@@ -1,0 +1,67 @@
+---
+title: "Cloud Tinkering (1): One Domain, One Small Digital Home"
+date: 2026-11-09T21:00:00+08:00
+draft: false
+description: "A domain, a mailbox, a blog, a podcast and a data pipeline that runs every six hours: you can set up a home online for almost nothing."
+summary: "It started with buying a domain. Then the mailbox, the blog, the podcast and the self-updating data moved in, one by one."
+categories: ["AI Tinkering Notes"]
+tags: ["Domains", "Email", "GitHub Pages", "Podcast", "Free Cloud Services"]
+---
+
+Most people's presence online is scattered across platforms: a social feed here, a newsletter there, a signature on some forum. The houses all belong to someone else. If a platform changes its rules, your things can vanish overnight.
+
+This autumn I decided to give myself a home on the internet. Not a rented room, but a place with a house number, a mailbox and a living room. After two weeks or so of tinkering, I looked back and realised the core of it had cost almost nothing.
+
+## The house number: a domain of my own
+
+Everything starts with the domain. A domain is your house number online. Once you own it, your email, your website and any service you set up later can all hang off it.
+
+I bought five years in one go at [Porkbun](https://porkbun.com). It's the only real expense in the whole house. The point of owning a domain isn't technical, it's portability: if one day I'm tired of my blog host or my email provider, I just swap the house behind the number. The address stays the same, and the people who know me can still find me.
+
+![Behind the gate, paths branch off to mail, the blog and the podcast](signposts.webp)
+
+## The mailbox: mail under my own name
+
+With a house number in place, the first thing to hang on the door was a mailbox. I found a free European email host, [Amelu](https://amelu.org), and opened two mailboxes: one for daily use, and one just for sign-ups and verification codes, a kind of parcel locker that keeps the main inbox quiet.
+
+It has no webmail, so I installed the open-source [Thunderbird](https://www.thunderbird.net/mobile/) client on my phone, and sending and receiving work fine. The best thing about email on your own domain is that it looks proper and stays independent: no worrying that some big provider will lock my account one day.
+
+## The living room: a blog that tidies itself
+
+Beyond the mailbox, a home needs a living room. That's the blog you're reading now.
+
+It lives on [GitHub Pages](https://pages.github.com), for free, and it has one very relaxing property: the site is "static". It's just a pile of pre-built web pages, with no database and no server that has to stay running. Nothing to crash, and almost nothing to attack.
+
+The blog has changed its look a few times. It started on a plain template, then moved to [Hugo](https://gohugo.io) with the [Blowfish](https://blowfish.page) theme for a more techy feel. The colours went from neon to today's "tech gray", and the tagline went from European economics only to "Seeing the world, savouring life". It's now bilingual, has categories, and the footer even shows a little weather widget based on where the visitor is.
+
+## The radio: turning posts into a podcast
+
+Later I added a small toy: every post gets a Chinese and an English narration, plus a standard podcast feed. Readers can listen right on the page, or add the feed to a podcast app and follow the blog like a radio station.
+
+The voices are synthesised with [Edge TTS](https://github.com/rany2/edge-tts). They're not broadcast quality, but listening to a long piece on European politics on the commute beats staring at a phone screen.
+
+## Automatic deliveries: data refreshed every six hours
+
+I follow economic data for the eurozone and the US: interest rates, inflation, exchange rates. At first I built two separate data dashboards and put them on free servers elsewhere (the next post explains why they "love to sleep").
+
+Then I changed approach: GitHub now runs a small program every six hours that pulls figures straight from the [ECB Data Portal](https://data.ecb.europa.eu) and the St. Louis Fed's [FRED](https://fred.stlouisfed.org), saves them in a small file, and publishes it with the blog. The data strip on the home page and the Data page both read that file. Visitors always get an instant page, and the data is at most a few hours old.
+
+That taught me something: often you don't need a server that's always on. A small pipeline that runs on a timer is enough.
+
+## What this home means
+
+Add it up and this digital home is one paid domain, plus free email, free web hosting and free automation. Each piece can be swapped out on its own, and no single company can lock me in.
+
+It's small, and it doesn't get many visitors. But it's mine: I write what I want, change the layout when I want, and show whatever data I want. As platforms keep getting bigger, owning a small place of your own is a kind of freedom in itself.
+
+Next time: the computer I "borrowed" in the cloud, and a few servers that doze off the moment you look away.
+
+## Copy my homework
+
+- Domain: [Porkbun](https://porkbun.com)
+- Email on your own domain: [Amelu](https://amelu.org) (has a free plan)
+- Mail client on the phone: [Thunderbird](https://www.thunderbird.net/mobile/)
+- Blog hosting: [GitHub Pages](https://pages.github.com), built automatically with GitHub Actions
+- Site generator and theme: [Hugo](https://gohugo.io), [Blowfish](https://blowfish.page)
+- Narration: [Edge TTS](https://github.com/rany2/edge-tts) (an unofficial tool)
+- Data sources: [ECB Data Portal](https://data.ecb.europa.eu), [FRED](https://fred.stlouisfed.org)
