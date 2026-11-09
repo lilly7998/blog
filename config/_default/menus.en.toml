@@ -37,6 +37,25 @@
   pageRef = "categories/energy-and-geopolitics"
   weight = 22
 
+
+[[main]]
+  name = "AI Tinkering Notes"
+  parent = "categories"
+  pageRef = "categories/ai-tinkering-notes"
+  weight = 23
+
+[[main]]
+  name = "Cosmic Musings"
+  parent = "categories"
+  pageRef = "categories/cosmic-musings"
+  weight = 24
+
+[[main]]
+  name = "World History Chats"
+  parent = "categories"
+  pageRef = "categories/world-history-chats"
+  weight = 25
+
 [[main]]
   name = "Data"
   identifier = "data"

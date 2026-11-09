@@ -44,6 +44,25 @@
   pageRef = "categories/诗歌散文"
   weight = 24
 
+
+[[main]]
+  name = "AI折腾笔记"
+  parent = "categories"
+  pageRef = "categories/ai折腾笔记"
+  weight = 25
+
+[[main]]
+  name = "宇宙遐想"
+  parent = "categories"
+  pageRef = "categories/宇宙遐想"
+  weight = 26
+
+[[main]]
+  name = "世界历史闲聊"
+  parent = "categories"
+  pageRef = "categories/世界历史闲聊"
+  weight = 27
+
 [[main]]
   name = "播客"
   pageRef = "podcast"
