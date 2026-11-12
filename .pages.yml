@@ -1,0 +1,72 @@
+# Pages CMS (https://app.pagescms.org) 配置：手机上编辑博客
+media:
+  - name: images
+    label: 图片
+    input: static/images/uploads
+    output: /images/uploads
+    rename: safe
+    categories: [image]
+
+settings:
+  content:
+    merge: true   # 保存时保留表单里没有的字段，不会丢掉主题用的其他设置
+
+content:
+  - name: posts
+    label: 中文文章
+    type: collection
+    path: content/posts
+    subfolders: true
+    exclude: [_index.md, _index.en.md]
+    filename:
+      template: "{slug}/index.md"
+      field: create
+    view:
+      layout: tree
+      node:
+        filename: index.md
+        hideDirs: others
+      fields: [title, date, draft]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: true
+      - name: date
+        label: 发布时间
+        type: date
+        options:
+          time: true
+          format: "yyyy-MM-dd'T'HH:mm:ssXXX"
+      - name: draft
+        label: 草稿（打开就不发布）
+        type: boolean
+        default: false
+      - name: description
+        label: 简介
+        type: text
+      - name: summary
+        label: 摘要（列表页显示）
+        type: text
+      - name: categories
+        label: 分类
+        type: select
+        options:
+          multiple: true
+          values: [欧洲政治, 能源与地缘, 东方文明, 诗歌散文, 宇宙遐想]
+      - name: tags
+        label: 标签
+        type: string
+        list: true
+      - name: body
+        label: 正文
+        type: rich-text
+        options:
+          format: markdown
+          media: images
+          switcher: true
