@@ -14,8 +14,6 @@ The short version: **the central banks on both sides of the Atlantic are followi
 
 All probabilities here are my own judgments, not market pricing. In mid-December, I will check them against what actually happened.
 
-![A transatlantic chessboard](feature.webp)
-
 ## 1. The White House: it lost the election, so why double down on tariffs?
 
 A week after the midterms, White House trade adviser Peter Navarro said the administration is "quadrupling down on tariffs." On the same day, a Reuters/Ipsos poll found that 62% of Americans support repealing them.
