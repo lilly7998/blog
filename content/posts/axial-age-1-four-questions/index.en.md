@@ -1,0 +1,62 @@
+---
+title: "Axial Age Essays (I): One Age, Four Questions"
+date: 2026-11-12T13:30:00+08:00
+draft: false
+description: "Starting with Thales of Miletus: why the Greeks began asking what makes the world run, and what China, India and Egypt were thinking about in the same centuries."
+summary: "Geography built the stage, but trade and debate were the actors."
+categories: ["World History Chats"]
+tags: ["Axial Age", "Ancient Greece", "Milesian School", "Jaspers", "History of Philosophy"]
+---
+
+Somewhere between the eighth and the second centuries BCE, several civilizations that knew next to nothing of one another began, at almost the same moment, to ask the most basic questions about the world and about how to live. The German philosopher Karl Jaspers called this stretch of history the "Axial Age." I know Eastern history and thought better, so I'm starting on less familiar ground, with Greece, and then turning back to see what China, India and Egypt were thinking about in the same centuries.
+
+This is the first in a series. I'll keep writing wherever my curiosity takes me.
+
+## From "Who's Behind It?" to "How Does It Work?"
+
+Before this, the Greeks explained the world through myth: thunder was Zeus losing his temper, a tidal wave was Poseidon making trouble. The turn came in the sixth century BCE in Miletus, a Greek city on what is now the west coast of Turkey.
+
+- **Thales** said that everything comes from water.
+- **Anaximander**, his student, wasn't convinced. No single substance, he argued, could account for everything, so he proposed the *apeiron*, "the boundless": a primordial stuff with no fixed form.
+- **Anaximenes** brought it back down to something concrete. Everything comes from air, he said, which thickens into water and earth and thins out into fire.
+- **Heraclitus** stepped out of the "which substance?" argument altogether. Everything flows, he said. Fire is the emblem of change, but behind the change lies an eternal rational order, which he called the Logos.
+
+These answers look naive today. What mattered was that the question itself had changed: from "who is running the world?" to "what makes the world run?" That step cleared the ground for science and philosophy.
+
+It wasn't an overnight break with religion, though. According to Aristotle, Thales also said that "all things are full of gods." Reason grew out of myth little by little; it didn't sever myth in a single stroke.
+
+## My First Guess: Geography
+
+Why Greece, of all places? My first guess was geography. Greece is mountainous, its soil is poor, and the sea surrounds it on three sides. Life there was hard. The gods were slow to show up, so in the end people had to rely on themselves, and what they thought about was the relationship between humans and nature.
+
+After some reading, I think that explanation is only half right. Geography did push the Greeks out to sea, and it split them into many independent city-states instead of one great empire. But two other things turned those conditions into philosophy:
+
+- **Trade breeds doubt.** Miletus was a trading hub. The Greeks learned geometry from Egypt and astronomy from Babylon, and discovered along the way that every people explained the gods and the world in its own way. Once you realize that your neighbor's worldview and your own myths can't both be true, tradition stops being the final word. You need a way of explaining things that anyone can check, and that was logic.
+- **Arguing in the agora.** The city's public business was debated openly in the square and settled by persuasion, not by oracles. That habit carried over into thinking about nature: any theory of the cosmos had to survive being challenged in public.
+
+![Citizens gathered in a sunlit agora as one man argues his case](agora.webp)
+
+So here's where I've landed: geography built the stage, but trade and debate were the actors. And the idea that a crisis of survival gives birth to philosophy doesn't transfer neatly to the East. When the old rites and music fell apart in China's Spring and Autumn period, that was a crisis of order. Nobody was struggling to stay alive.
+
+## The Greek Line: From Water to Logic
+
+After the Milesians, Greek philosophy ran like a relay race:
+
+- **Socrates** turned from nature to people, asking what justice is and what virtue is.
+- **Plato** carried this to its height, arguing that the reality we see is only a reflection of higher "Forms."
+- **Aristotle** gathered up everything that came before into a system and built a rigorous logic.
+
+From Thales to Aristotle took a little over two hundred years. In that time the Greeks went from puzzling over water to puzzling over the rules of thought itself.
+
+## One Age, Four Questions
+
+Pull back, and you see each civilization of the period asking a question of its own:
+
+- **Greece looked outward**: what is the world made of, and how should we reason about it?
+- **China looked at people and society**: Laozi and Confucius belong roughly to this period (Laozi's dates are still disputed). They cared about where a person stands in society, and whether to go along with nature or to live by ritual and propriety.
+- **India looked inward**: the early Upanishads, such as the *Brihadaranyaka* and the *Chandogya*, were taking shape. Their central question was how the individual soul relates to the ultimate reality of the cosmos, the oneness of *atman* and *Brahman*. See through to that, they believed, and you could be free of suffering.
+- **Egypt kept the order**: by now Egypt was an ancient civilization in its late period. There was no intellectual upheaval; instead, the Egyptians were upholding a cosmic order called Ma'at.
+
+One explored outward, one put human relations in order, one searched inward, one held the balance. As for why it all happened at once, I have no answer, and I suspect nobody has settled it even now. What interests me more is what each of them was actually thinking.
+
+Next time I'll start with India: where did the drive to think so deeply come from?
