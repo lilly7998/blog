@@ -15,6 +15,7 @@
     <div>{{ if $zh }}猜测时间{{ else }}Made{{ end }}</div>
   </div>
   <div class="gs-body"></div>
+  <div class="gs-more"></div>
 </section>
 <style>
 .gs{--c1:#22d3ee;--c2:#818cf8;--ok:#10b981;--bad:#ef4444;max-width:56rem;margin:2.5rem auto 1rem;padding:1.1rem 1.2rem;border-radius:1rem;
@@ -37,8 +38,13 @@
 .gs-res{font-size:1.15rem;font-weight:800;text-align:center}
 .gs-ok{color:var(--ok)} .gs-bad{color:var(--bad)} .gs-wait{font-size:.68rem;opacity:.55;font-weight:400}
 .gs-lab{display:none}
+.gs-body{max-height:18.5rem;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(129,140,248,.5) transparent;padding-right:.25rem}
+.gs-body::-webkit-scrollbar{width:4px}.gs-body::-webkit-scrollbar-thumb{background:linear-gradient(var(--c1),var(--c2));border-radius:4px}
+.gs-body.gs-fade{-webkit-mask-image:linear-gradient(#000 85%,transparent);mask-image:linear-gradient(#000 85%,transparent)}
+.gs-more{font-size:.7rem;opacity:.55;text-align:center;margin-top:.35rem;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
 @media (max-width:640px){
  .gs{padding:1rem .9rem}
+ .gs-body{max-height:27rem}
  .gs-th{display:none}
  .gs-row{grid-template-columns:1fr auto;grid-template-areas:"t r" "p p" "m m";gap:.3rem .6rem;padding:.6rem .1rem}
  .gs-row>.c-t{grid-area:t;font-weight:600}.gs-row>.c-r{grid-area:r}.gs-row>.c-p{grid-area:p}
@@ -69,5 +75,10 @@
       '<div class="c-a gs-mono gs-dim">'+esc(g.added)+'</div>'+
       '<div class="c-m gs-mono gs-dim">'+T.until+esc(g.until)+' · '+T.made+esc(g.added)+'</div>'+
     '</div>'}).join('');
+  var body=root.querySelector('.gs-body'),more=root.querySelector('.gs-more');
+  function upd(){var sc=body.scrollHeight>body.clientHeight+2,end=body.scrollTop+body.clientHeight>=body.scrollHeight-4;
+    body.classList.toggle('gs-fade',sc&&!end);
+    more.textContent=sc?(ZH?'共 '+G.length+' 条 · '+(end?'已到底':'上下滑动查看更多 ↕'):G.length+' calls · '+(end?'end of list':'scroll for more ↕')):'';}
+  body.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
 })();
 </script>
