@@ -1,0 +1,73 @@
+{{- $zh := ne .Language.Lang "en" -}}
+<section id="guesses" class="gs not-prose" data-lang="{{ if $zh }}zh{{ else }}en{{ end }}">
+  <div class="gs-head">
+    <div>
+      <div class="gs-title"><span class="gs-dot"></span>{{ if $zh }}我猜{{ else }}My Guesses{{ end }}</div>
+      <div class="gs-sub">{{ if $zh }}公开下注，到期对账{{ else }}Public calls, checked when they expire{{ end }}</div>
+    </div>
+    <div class="gs-score"></div>
+  </div>
+  <div class="gs-row gs-th">
+    <div>{{ if $zh }}猜测内容{{ else }}Call{{ end }}</div>
+    <div>{{ if $zh }}概率{{ else }}Odds{{ end }}</div>
+    <div>{{ if $zh }}有效期{{ else }}Until{{ end }}</div>
+    <div>{{ if $zh }}应验{{ else }}Result{{ end }}</div>
+    <div>{{ if $zh }}猜测时间{{ else }}Made{{ end }}</div>
+  </div>
+  <div class="gs-body"></div>
+</section>
+<style>
+.gs{--c1:#22d3ee;--c2:#818cf8;--ok:#10b981;--bad:#ef4444;max-width:56rem;margin:2.5rem auto 1rem;padding:1.1rem 1.2rem;border-radius:1rem;
+ border:1px solid rgba(129,140,248,.28);background:linear-gradient(135deg,rgba(34,211,238,.06),rgba(129,140,248,.06));
+ box-shadow:0 0 0 1px rgba(255,255,255,.02) inset,0 8px 30px -12px rgba(99,102,241,.35);text-align:left}
+.gs-head{display:flex;justify-content:space-between;align-items:flex-end;gap:.8rem;margin-bottom:.8rem}
+.gs-title{font-weight:800;font-size:1.25rem;letter-spacing:.04em;display:flex;align-items:center;gap:.5rem}
+.gs-dot{width:.55rem;height:.55rem;border-radius:50%;background:var(--c1);box-shadow:0 0 10px var(--c1);animation:gsp 2s infinite}
+@keyframes gsp{50%{opacity:.35}}
+.gs-sub{font-size:.75rem;opacity:.6;margin-top:.15rem}
+.gs-score{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem;opacity:.85;white-space:nowrap}
+.gs-row{display:grid;grid-template-columns:minmax(0,1fr) 7.5rem 6.2rem 3rem 6.2rem;gap:.8rem;align-items:center;padding:.65rem .2rem;
+ border-top:1px solid rgba(127,127,127,.15);font-size:.9rem}
+.gs-th{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;opacity:.5;border-top:0;padding-top:0}
+.gs-mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums;font-size:.8rem}
+.gs-p{display:flex;align-items:center;gap:.45rem}
+.gs-bar{flex:1;height:.3rem;border-radius:1rem;background:rgba(127,127,127,.18);overflow:hidden}
+.gs-bar i{display:block;height:100%;border-radius:1rem;background:linear-gradient(90deg,var(--c1),var(--c2))}
+.gs-old .gs-dim{opacity:.4;filter:grayscale(1)}
+.gs-res{font-size:1.15rem;font-weight:800;text-align:center}
+.gs-ok{color:var(--ok)} .gs-bad{color:var(--bad)} .gs-wait{font-size:.68rem;opacity:.55;font-weight:400}
+.gs-lab{display:none}
+@media (max-width:640px){
+ .gs{padding:1rem .9rem}
+ .gs-th{display:none}
+ .gs-row{grid-template-columns:1fr auto;grid-template-areas:"t r" "p p" "m m";gap:.3rem .6rem;padding:.6rem .1rem}
+ .gs-row>.c-t{grid-area:t;font-weight:600}.gs-row>.c-r{grid-area:r}.gs-row>.c-p{grid-area:p}
+ .gs-row>.c-u,.gs-row>.c-a{display:none}
+ .gs-row>.c-m{grid-area:m;display:block;opacity:.6}
+ .gs-lab{display:inline}
+}
+@media (min-width:641px){.gs-row>.c-m{display:none}}
+</style>
+<script>
+(function(){
+  var root=document.getElementById('guesses');if(!root)return;
+  var ZH=root.dataset.lang==='zh',G={{ hugo.Data.guesses | default slice | jsonify | safeJS }};
+  var d=new Date(),today=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+  var T=ZH?{wait:'待核对',hit:'已应验',until:'有效期 ',made:'猜于 '}:{wait:'pending',hit:'Hit rate',until:'until ',made:'made '};
+  G.forEach(function(g){g.old=g.until<today;var r=g.result;g.result=(r===true||r==='对'||r==='true')?true:(r===false||r==='错'||r==='false')?false:null});
+  G.sort(function(a,b){return a.old!==b.old?(a.old?1:-1):(a.old?(a.until<b.until?1:-1):(a.until<b.until?-1:1))});
+  var done=G.filter(function(g){return g.old&&(g.result===true||g.result===false)}),hit=done.filter(function(g){return g.result===true}).length;
+  if(done.length)root.querySelector('.gs-score').textContent=T.hit+' '+hit+'/'+done.length;
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  root.querySelector('.gs-body').innerHTML=G.map(function(g){
+    var r='';if(g.old){r=g.result===true?'<span class="gs-ok">✓</span>':g.result===false?'<span class="gs-bad">✗</span>':'<span class="gs-wait">'+T.wait+'</span>'}
+    return '<div class="gs-row'+(g.old?' gs-old':'')+'">'+
+      '<div class="c-t gs-dim">'+esc(ZH?g.zh:g.en)+'</div>'+
+      '<div class="c-p gs-p gs-dim"><span class="gs-bar"><i style="width:'+(+g.p||0)+'%"></i></span><span class="gs-mono">'+esc(g.p)+'%</span></div>'+
+      '<div class="c-u gs-mono gs-dim">'+esc(g.until)+'</div>'+
+      '<div class="c-r gs-res">'+r+'</div>'+
+      '<div class="c-a gs-mono gs-dim">'+esc(g.added)+'</div>'+
+      '<div class="c-m gs-mono gs-dim">'+T.until+esc(g.until)+' · '+T.made+esc(g.added)+'</div>'+
+    '</div>'}).join('');
+})();
+</script>

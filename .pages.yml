@@ -70,3 +70,35 @@ content:
           format: markdown
           media: images
           switcher: true
+
+  - name: guesses
+    label: 我猜（首页预测看板）
+    type: file
+    path: data/guesses.yaml
+    format: yaml
+    list: true
+    fields:
+      - name: zh
+        label: 猜测内容（中文）
+        type: string
+        required: true
+      - name: en
+        label: 猜测内容（英文）
+        type: string
+      - name: p
+        label: 概率（0–100）
+        type: number
+        required: true
+      - name: until
+        label: 有效期
+        type: date
+        required: true
+      - name: added
+        label: 猜测时间
+        type: date
+        required: true
+      - name: result
+        label: 是否应验（到期后再选；留空=待核对）
+        type: select
+        options:
+          values: ["", "对", "错"]

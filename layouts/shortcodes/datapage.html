@@ -1,15 +1,31 @@
 {{- $zh := ne .Page.Language.Lang "en" -}}
 <div id="datapage" class="not-prose" data-lang="{{ if $zh }}zh{{ else }}en{{ end }}" data-base="{{ "/" | relURL }}" style="text-align:left">
   <div class="dp-status" style="font-size:.78rem;opacity:.75;margin-bottom:.6rem">{{ if $zh }}载入中…{{ else }}Loading…{{ end }}</div>
+  <div class="dp-live">
+    <div class="dp-live-t"><span class="dp-live-dot"></span>{{ if $zh }}查看可交互的实时数据{{ else }}Open the interactive live dashboards{{ end }}</div>
+    <div class="dp-live-b">
+      <a class="dp-btn dp-eu" href="https://euro.andy.prod.page/?lang={{ if $zh }}zh{{ else }}en{{ end }}" target="_blank" rel="noopener">€ {{ if $zh }}欧元区实时看板{{ else }}Euro area live{{ end }} <span>&#8599;&#xFE0E;</span></a>
+      <a class="dp-btn dp-us" href="https://dollar.andy.prod.page/?lang={{ if $zh }}zh{{ else }}en{{ end }}" target="_blank" rel="noopener">$ {{ if $zh }}美国实时看板{{ else }}US live{{ end }} <span>&#8599;&#xFE0E;</span></a>
+    </div>
+    <div class="dp-live-n">{{ if $zh }}服务器休眠时，首次打开需等十几秒{{ else }}If the server is asleep, the first load takes a few seconds{{ end }}</div>
+  </div>
+  <style>
+  .dp-live{margin:.2rem 0 .9rem;padding:.85rem 1rem;border-radius:.9rem;border:1px solid rgba(129,140,248,.3);background:linear-gradient(135deg,rgba(37,99,235,.07),rgba(220,38,38,.06))}
+  .dp-live-t{font-weight:700;font-size:1rem;display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
+  .dp-live-dot{width:.5rem;height:.5rem;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e;animation:dpp 1.8s infinite}
+  @keyframes dpp{50%{opacity:.3}}
+  .dp-live-b{display:flex;flex-wrap:wrap;gap:.6rem}
+  .dp-btn{flex:1 1 11rem;display:flex;justify-content:center;align-items:center;gap:.4rem;padding:.75rem 1rem;border-radius:.7rem;font-weight:700;font-size:1rem;
+   color:#fff !important;text-decoration:none !important;transition:transform .15s,box-shadow .15s}
+  .dp-btn:hover{transform:translateY(-1px)}
+  .dp-btn span{opacity:.8;font-weight:400}
+  .dp-eu{background:linear-gradient(135deg,#1d4ed8,#3b82f6);box-shadow:0 6px 18px -8px #2563eb}
+  .dp-us{background:linear-gradient(135deg,#b91c1c,#ef4444);box-shadow:0 6px 18px -8px #dc2626}
+  .dp-live-n{font-size:.72rem;opacity:.6;margin-top:.5rem}
+  </style>
   <div class="dp-kpis" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(8.5rem,1fr));gap:.5rem"></div>
   <div class="dp-meet" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(12rem,1fr));gap:.5rem;margin-top:.5rem"></div>
   <div class="dp-charts" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:.6rem;margin-top:.6rem"></div>
-  <div style="font-size:.75rem;opacity:.65;margin-top:1rem">
-    {{ if $zh }}想看可交互的实时版：{{ else }}Interactive live versions: {{ end }}
-    <a href="https://euro.andy.prod.page/?lang={{ if $zh }}zh{{ else }}en{{ end }}" target="_blank" rel="noopener">{{ if $zh }}欧元区看板{{ else }}Euro area dashboard{{ end }}</a> ·
-    <a href="https://dollar.andy.prod.page/?lang={{ if $zh }}zh{{ else }}en{{ end }}" target="_blank" rel="noopener">{{ if $zh }}美元看板{{ else }}US dollar dashboard{{ end }}</a>
-    {{ if $zh }}（服务器休眠时打开需等十几秒）{{ else }}(may take a few seconds to wake){{ end }}
-  </div>
 </div>
 <script src="{{ "js/datakit.js" | relURL }}"></script>
 <script>

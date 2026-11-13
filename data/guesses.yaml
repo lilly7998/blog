@@ -1,0 +1,51 @@
+# 「我猜」看板：首页底部。每条：zh/en 内容，p 概率(0-100)，until 有效期 YYYY-MM-DD，
+# added 录入日期 YYYY-MM-DD，result 结果：留空=待核对，对=应验，错=未应验。
+# 过了有效期整行变灰；result 只在过期后显示。
+- zh: "美联储 12 月 9 日加息 25 个基点"
+  en: "Fed raises rates by 25 bp on Dec 9"
+  p: 85
+  until: "2026-12-09"
+  added: "2026-11-12"
+  result:
+- zh: "欧央行 12 月 17 日加息 25 个基点，存款利率升至 2.75%"
+  en: "ECB hikes 25 bp on Dec 17, deposit rate to 2.75%"
+  p: 85
+  until: "2026-12-17"
+  added: "2026-11-12"
+  result:
+- zh: "11 月 26–27 日欧盟峰会不能就 2028–34 长期预算达成协议"
+  en: "No deal on the EU's 2028–34 budget at the Nov 26–27 summit"
+  p: 85
+  until: "2026-11-27"
+  added: "2026-11-12"
+  result:
+- zh: "欧盟年底前就 2028–34 长期预算达成协议"
+  en: "EU agrees its 2028–34 budget by year-end"
+  p: 25
+  until: "2026-12-31"
+  added: "2026-11-12"
+  result:
+- zh: "450 亿欧元援乌安排年底前凑齐，匈、斯、捷、保四国不参加"
+  en: "€45bn for Ukraine in place by year-end without Hungary, Slovakia, Czechia, Bulgaria"
+  p: 65
+  until: "2026-12-31"
+  added: "2026-11-12"
+  result:
+- zh: "德科斯接任欧央行行长（年底前拍板）"
+  en: "Hernández de Cos named ECB president by year-end"
+  p: 60
+  until: "2026-12-31"
+  added: "2026-11-12"
+  result:
+- zh: "法国政府撑过 2027 年 1 月底，不被倒阁"
+  en: "French government survives to end of January 2027"
+  p: 75
+  until: "2027-01-31"
+  added: "2026-11-12"
+  result:
+- zh: "2027 年底美国主要关税仍在"
+  en: "Main US tariffs still in place at end of 2027"
+  p: 80
+  until: "2027-12-31"
+  added: "2026-11-12"
+  result:
