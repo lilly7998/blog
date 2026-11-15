@@ -1,6 +1,6 @@
 ---
 title: "Who Follows Lagarde? Changing the ECB's Guard in a Hiking Cycle"
-date: 2026-11-15T15:00:00+08:00
+date: 2026-11-15T14:20:00+08:00
 draft: false
 description: "Christine Lagarde leaves the ECB early on 7 February 2027, and half of its six-member Executive Board turns over within five months. Spain's Hernández de Cos faces the Netherlands' Klaas Knot while Paris and Berlin negotiate a package; meanwhile inflation is at 4.0% and a December hike looks all but certain. The timeline, the candidates, the Franco-German deal and checkable forecasts."
 summary: "Hernández de Cos will most likely get the job, but three seats are being traded, not one. The new president inherits inflation at twice target and growth propped up by Ireland."
