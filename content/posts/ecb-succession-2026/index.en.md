@@ -4,7 +4,7 @@ date: 2026-11-15T14:20:00+08:00
 draft: false
 description: "Christine Lagarde leaves the ECB early on 7 February 2027, and half of its six-member Executive Board turns over within five months. Spain's Hernández de Cos faces the Netherlands' Klaas Knot while Paris and Berlin negotiate a package; meanwhile inflation is at 4.0% and a December hike looks all but certain. The timeline, the candidates, the Franco-German deal and checkable forecasts."
 summary: "Hernández de Cos will most likely get the job, but three seats are being traded, not one. The new president inherits inflation at twice target and growth propped up by Ireland."
-categories: ["European Economy"]
+categories: ["European Politics"]
 tags: ["ECB", "Lagarde", "Hernández de Cos", "Knot", "Rate Hikes", "Euro Area"]
 ---
 
@@ -46,6 +46,8 @@ Merz said in Dublin on 13 November that a deal was "in sight but not final". Nom
 
 - **Inflation**: **4.0%** in October (flash), twice target, driven by Middle East energy prices; 2.3% excluding energy.
 - **Rates**: deposit rate **2.5%**, held on 29 October. A Reuters poll on 12 November found most economists expect **another hike on 17 December**; Bundesbank chief Joachim Nagel said on 13 November that further action is "highly probable" if conditions persist.
+![Q3 2026 GDP growth by euro-area country](gdp-en.webp "Excluding Ireland, the euro area grew just 0.2% in Q3. Data: Eurostat, Crédit Agricole")
+
 - **Growth**: Q3 GDP **+0.4%** q/q, but about 0.2 points came from Ireland (+5.5%). Excluding Ireland, 0.2%; France **−0.1%**, Italy **0**, Spain **+0.6%**. Employment flat.
 
 The new president will likely face one question first: **when to stop hiking**. Markets would probably read de Cos as a signal of stopping sooner.
@@ -61,5 +63,7 @@ The new president will likely face one question first: **when to stop hiking**. 
 | ECB hikes 25 bp on 17 December | 85% | 2026-12-17 |
 
 The last is already on the board. Results will be checked on the home-page guesses board.
+
+**Images**: cover shows the ECB headquarters on the Main in Frankfurt (photo by Dr. Thomas Liptak, CC BY-SA 4.0, via Wikimedia Commons); growth chart by this site.
 
 *Sources: ECB and Eurogroup statements, Euronews, Reuters, Politico, Eurostat, Crédit Agricole research, as of 15 November 2026.*

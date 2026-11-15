@@ -61,7 +61,7 @@
   var d=new Date(),today=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
   var T=ZH?{wait:'待核对',hit:'已应验',until:'有效期 ',made:'猜于 '}:{wait:'pending',hit:'Hit rate',until:'until ',made:'made '};
   G.forEach(function(g){g.old=g.until<today;var r=g.result;g.result=(r===true||r==='对'||r==='true')?true:(r===false||r==='错'||r==='false')?false:null});
-  G.sort(function(a,b){return a.old!==b.old?(a.old?1:-1):(a.old?(a.until<b.until?1:-1):(a.until<b.until?-1:1))});
+  G.sort(function(a,b){if(a.old!==b.old)return a.old?1:-1;if(a.until!==b.until)return (a.until<b.until?-1:1)*(a.old?-1:1);return a.added<b.added?1:a.added>b.added?-1:0});
   var done=G.filter(function(g){return g.old&&(g.result===true||g.result===false)}),hit=done.filter(function(g){return g.result===true}).length;
   if(done.length)root.querySelector('.gs-score').textContent=T.hit+' '+hit+'/'+done.length;
   var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
