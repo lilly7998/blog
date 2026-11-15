@@ -33,7 +33,7 @@
   result:
 - zh: "德科斯接任欧央行行长（年底前拍板）"
   en: "Hernández de Cos named ECB president by year-end"
-  p: 60
+  p: 70
   until: "2026-12-31"
   added: "2026-11-12"
   result:
@@ -48,4 +48,22 @@
   p: 80
   until: "2027-12-31"
   added: "2026-11-12"
+  result:
+- zh: "欧盟领导人 12 月 17–18 日峰会任命新欧央行行长"
+  en: "EU leaders appoint new ECB president at Dec 17–18 summit"
+  p: 70
+  until: "2026-12-18"
+  added: "2026-11-15"
+  result:
+- zh: "欧央行执委会三个空缺中，德、法各得一席"
+  en: "Germany and France each get one of the three vacant ECB board seats"
+  p: 80
+  until: "2026-12-31"
+  added: "2026-11-15"
+  result:
+- zh: "布伦纳迈尔被定为欧央行下任首席经济学家（年底前）"
+  en: "Brunnermeier named next ECB chief economist by year-end"
+  p: 45
+  until: "2026-12-31"
+  added: "2026-11-15"
   result:
