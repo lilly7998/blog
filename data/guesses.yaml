@@ -85,3 +85,15 @@
   added: "2026-11-15"
   updated: "2026-11-17"
   result:
+- zh: "美伊 2027 年 3 月底前宣布有明确生效日期的正式停火协议"
+  en: "US and Iran announce a formal ceasefire with a set start date by end of March 2027"
+  p: 30
+  until: "2027-03-31"
+  added: "2026-11-17"
+  result:
+- zh: "霍尔木兹海峡商船通行量 2027 年 6 月底前连续 4 周恢复到战前一半以上"
+  en: "Hormuz commercial transits back above half of pre-war levels for 4 straight weeks by end of June 2027"
+  p: 35
+  until: "2027-06-30"
+  added: "2026-11-17"
+  result:
