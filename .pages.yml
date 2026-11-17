@@ -58,7 +58,7 @@ content:
         type: select
         options:
           multiple: true
-          values: [欧洲政治, 能源与地缘, 东方文明, 诗歌散文, 宇宙遐想]
+          values: [欧洲政治, 能源与地缘, 东方文明, 诗歌散文, 宇宙遐想, AI折腾笔记, 世界历史闲聊, 小游戏]
       - name: tags
         label: 标签
         type: string

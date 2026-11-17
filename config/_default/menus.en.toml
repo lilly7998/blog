@@ -57,6 +57,12 @@
   weight = 25
 
 [[main]]
+  name = "Mini Games"
+  parent = "categories"
+  pageRef = "categories/mini-games"
+  weight = 26
+
+[[main]]
   name = "Data"
   identifier = "data"
   pageRef = "data"

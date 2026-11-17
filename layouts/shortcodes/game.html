@@ -1,0 +1,6 @@
+{{ $slug := .Get "slug" }}{{ $h := .Get "height" | default "680" }}
+{{ $isEn := eq .Page.Language.Lang "en" }}{{ $lang := cond $isEn "en" "zh" }}
+<div class="not-prose my-6">
+  <iframe src="/games/{{ $slug }}/?lang={{ $lang }}" title="{{ .Page.Title }}" loading="lazy" style="width:100%;height:{{ $h }}px;border:0;border-radius:12px;background:#0b1020;display:block" allow="fullscreen"></iframe>
+  <p class="mt-3 text-sm"><a href="/games/{{ $slug }}/?lang={{ $lang }}" target="_blank" rel="noopener" class="inline-block rounded-lg border border-primary-500/40 px-4 py-2 font-semibold text-primary-600 dark:text-primary-400 hover:bg-primary-500/10">{{ if $isEn }}▶ Play full screen{{ else }}▶ 全屏玩（手机推荐）{{ end }}</a></p>
+</div>

@@ -64,6 +64,12 @@
   weight = 27
 
 [[main]]
+  name = "小游戏"
+  parent = "categories"
+  pageRef = "categories/小游戏"
+  weight = 28
+
+[[main]]
   name = "播客"
   pageRef = "podcast"
   weight = 40
