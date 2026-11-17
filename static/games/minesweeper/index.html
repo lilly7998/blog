@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<title>扫雷 · Minesweeper</title>
+<style>
+:root{--bg:#0b1020;--panel:#111936;--panel2:#162042;--line:rgba(129,140,248,.22);--cyan:#22d3ee;--indigo:#818cf8;--text:#e2e8f0;--muted:#8b98b8;--s:32px;--g:3px}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;overflow:hidden;overscroll-behavior:none;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:manipulation;-webkit-text-size-adjust:100%}
+body{background:radial-gradient(1100px 520px at 50% -18%,rgba(34,211,238,.13),transparent 60%),radial-gradient(800px 480px at 105% 115%,rgba(129,140,248,.16),transparent 60%),var(--bg)}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-action:manipulation}
+#app{height:100%;height:100dvh;display:flex;flex-direction:column;max-width:1180px;margin:0 auto;padding:max(10px,env(safe-area-inset-top)) 10px max(6px,env(safe-area-inset-bottom));gap:8px}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+h1{font-size:19px;font-weight:800;letter-spacing:.5px;background:linear-gradient(90deg,var(--cyan),var(--indigo));-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
+.seg{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:3px;gap:3px}
+.seg button{padding:6px 11px;border-radius:9px;font-size:13px;color:var(--muted);white-space:nowrap;transition:background .15s,color .15s}
+.seg button.on{background:linear-gradient(135deg,var(--cyan),var(--indigo));color:#0b1020;font-weight:700;box-shadow:0 0 14px rgba(34,211,238,.35)}
+@media (hover:hover){.seg button:not(.on):hover{color:var(--text);background:rgba(129,140,248,.12)}}
+.bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
+.chips{display:flex;gap:6px}
+.chip{display:flex;align-items:center;gap:5px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:5px 9px;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--cyan);text-shadow:0 0 8px rgba(34,211,238,.45);min-width:62px;justify-content:center}
+.chip .ic{font-size:13px;filter:saturate(.9);text-shadow:none}
+#face{width:44px;height:44px;border-radius:14px;font-size:24px;line-height:1;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#1d2a52,#141c3a);border:1px solid rgba(34,211,238,.35);box-shadow:0 0 16px rgba(34,211,238,.18),inset 0 1px 0 rgba(255,255,255,.08);transition:transform .1s}
+#face:active{transform:scale(.92)}
+.bar .right{display:flex;justify-content:flex-end}
+#mode button{padding:6px 10px;font-size:13px}
+.stage{flex:1;min-height:0;position:relative}
+.wrap{position:absolute;inset:0;overflow:auto;display:flex;padding:8px;border-radius:16px;background:linear-gradient(180deg,rgba(17,25,54,.65),rgba(11,16,32,.65));border:1px solid var(--line);box-shadow:inset 0 0 30px rgba(129,140,248,.06);overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:rgba(129,140,248,.4) transparent}
+#board{margin:auto;display:grid;gap:var(--g);grid-template-columns:repeat(var(--cols),var(--s));grid-auto-rows:var(--s);touch-action:manipulation;padding:2px;border-radius:12px;transition:box-shadow .4s}
+#board.won{box-shadow:0 0 0 2px rgba(34,211,238,.5),0 0 40px rgba(34,211,238,.35)}
+#board.lost{box-shadow:0 0 0 2px rgba(248,113,113,.4),0 0 36px rgba(248,113,113,.25)}
+.cell{width:var(--s);height:var(--s);border-radius:calc(var(--s)*.22);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:calc(var(--s)*.56);line-height:1;background:linear-gradient(145deg,#24325c,#18224a);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 0 0 1px rgba(129,140,248,.16);cursor:pointer;transition:background .12s,box-shadow .12s}
+@media (hover:hover){.cell:not(.open):hover{background:linear-gradient(145deg,#2c3d70,#1e2a58);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 0 1px rgba(34,211,238,.55),0 0 10px rgba(34,211,238,.25)}}
+.cell.press,.cell.hint{background:#121a38;box-shadow:inset 0 0 0 1px rgba(34,211,238,.45)}
+.cell.open{background:rgba(9,14,30,.92);box-shadow:inset 0 0 0 1px rgba(148,163,184,.07);cursor:default;animation:pop .18s ease-out}
+.cell.open.num{cursor:pointer}
+.cell.flag,.cell.mine,.cell.wrong{font-size:calc(var(--s)*.5)}
+.cell.flag{box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 0 0 1px rgba(244,114,182,.45),0 0 8px rgba(244,114,182,.2)}
+.cell.mine{background:rgba(30,20,40,.95);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25)}
+.cell.boom{background:radial-gradient(circle,#ef4444,#7f1d1d);box-shadow:0 0 16px rgba(239,68,68,.75)}
+.cell.wrong{background:rgba(60,20,30,.9);color:#f87171}
+.n1{color:#60a5fa}.n2{color:#34d399}.n3{color:#f87171}.n4{color:#c084fc}.n5{color:#fbbf24}.n6{color:#22d3ee}.n7{color:#f472b6}.n8{color:#e5e7eb}
+.cell.open.num{text-shadow:0 0 8px currentColor}
+@keyframes pop{from{transform:scale(.82);opacity:.4}to{transform:scale(1);opacity:1}}
+.hintline{font-size:12px;color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hintline b{color:var(--cyan);font-weight:700}
+footer{font-size:11px;color:rgba(139,152,184,.7);text-align:center;letter-spacing:.5px}
+.overlay{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(11,16,32,.55);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);border-radius:16px;z-index:5;padding:16px}
+.overlay.show{display:flex;animation:fade .25s ease-out}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.card{background:linear-gradient(var(--panel),var(--panel)) padding-box,linear-gradient(135deg,var(--cyan),var(--indigo)) border-box;border:1.5px solid transparent;border-radius:18px;padding:20px 22px;min-width:240px;max-width:320px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.5),0 0 30px rgba(129,140,248,.2)}
+.card .big{font-size:40px;line-height:1.1}
+.card h2{font-size:21px;margin:6px 0 10px;background:linear-gradient(90deg,var(--cyan),var(--indigo));-webkit-background-clip:text;background-clip:text;color:transparent}
+.card.lose h2{background:linear-gradient(90deg,#f87171,#f472b6);-webkit-background-clip:text;background-clip:text}
+.card p{font-size:14px;color:var(--muted);margin:4px 0}
+.card p b{color:var(--text);font-variant-numeric:tabular-nums}
+.card .nb{color:#fbbf24;font-weight:700;margin-top:6px}
+.btns{display:flex;gap:8px;justify-content:center;margin-top:14px}
+.btn{padding:9px 16px;border-radius:11px;font-size:14px;font-weight:700}
+.btn.pri{background:linear-gradient(135deg,var(--cyan),var(--indigo));color:#0b1020;box-shadow:0 0 16px rgba(34,211,238,.35)}
+.btn.sec{background:rgba(129,140,248,.12);border:1px solid var(--line);color:var(--text)}
+@media (max-width:420px){
+  #app{padding-left:8px;padding-right:8px;gap:7px}
+  h1{font-size:17px}
+  .seg button{padding:6px 9px;font-size:12.5px}
+  .chip{min-width:56px;padding:5px 7px;font-size:14px}
+  #mode button{padding:6px 8px}
+  .wrap{padding:6px}
+}
+@media (max-width:350px){.chip .ic{display:none}.chip{min-width:44px}}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1 id="title">扫雷</h1>
+    <div class="seg" id="levels">
+      <button data-level="beginner"></button>
+      <button data-level="intermediate"></button>
+      <button data-level="expert"></button>
+    </div>
+  </header>
+  <div class="bar">
+    <div class="chips">
+      <div class="chip" id="minesChip"><span class="ic">💣</span><span id="mineCount">010</span></div>
+      <div class="chip" id="timeChip"><span class="ic">⏱</span><span id="timer">000</span></div>
+    </div>
+    <button id="face" aria-label="restart">🙂</button>
+    <div class="right">
+      <div class="seg" id="mode">
+        <button data-mode="dig" class="on"></button>
+        <button data-mode="flag"></button>
+      </div>
+    </div>
+  </div>
+  <div class="stage" id="stage">
+    <div class="wrap" id="wrap"><div id="board"></div></div>
+    <div class="overlay" id="overlay">
+      <div class="card" id="card">
+        <div class="big" id="ovIcon"></div>
+        <h2 id="ovTitle"></h2>
+        <p id="ovTime"></p>
+        <p id="ovBest"></p>
+        <p class="nb" id="ovNew"></p>
+        <div class="btns">
+          <button class="btn sec" id="ovView"></button>
+          <button class="btn pri" id="ovAgain"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hintline" id="hint"></div>
+  <footer id="footer">wyz.name 小游戏</footer>
+</div>
+<script>
+(function () {
+  'use strict';
+
+  // CORE START
+  function neighbors(i, R, C) {
+    var r = (i / C) | 0, c = i % C, out = [];
+    for (var dr = -1; dr <= 1; dr++) {
+      for (var dc = -1; dc <= 1; dc++) {
+        if (!dr && !dc) continue;
+        var rr = r + dr, cc = c + dc;
+        if (rr >= 0 && rr < R && cc >= 0 && cc < C) out.push(rr * C + cc);
+      }
+    }
+    return out;
+  }
+  function placeMines(R, C, M, safe, rnd) {
+    rnd = rnd || Math.random;
+    var N = R * C, excl = {}, k;
+    excl[safe] = 1;
+    var nb = neighbors(safe, R, C);
+    if (N - 1 - nb.length >= M) for (k = 0; k < nb.length; k++) excl[nb[k]] = 1;
+    var cand = [];
+    for (k = 0; k < N; k++) if (!excl[k]) cand.push(k);
+    var mines = new Uint8Array(N);
+    var count = Math.min(M, cand.length);
+    for (k = 0; k < count; k++) {
+      var j = k + Math.floor(rnd() * (cand.length - k));
+      var t = cand[k]; cand[k] = cand[j]; cand[j] = t;
+      mines[cand[k]] = 1;
+    }
+    return mines;
+  }
+  function computeCounts(mines, R, C) {
+    var N = R * C, counts = new Uint8Array(N);
+    for (var i = 0; i < N; i++) {
+      if (mines[i]) { counts[i] = 9; continue; }
+      var nb = neighbors(i, R, C), n = 0;
+      for (var k = 0; k < nb.length; k++) n += mines[nb[k]];
+      counts[i] = n;
+    }
+    return counts;
+  }
+  // state: 0 hidden, 1 open, 2 flagged. Opens non-mine region from start; returns opened indices.
+  function flood(state, mines, counts, R, C, start) {
+    var opened = [], stack = [start];
+    while (stack.length) {
+      var i = stack.pop();
+      if (state[i] !== 0 || mines[i]) continue;
+      state[i] = 1;
+      opened.push(i);
+      if (counts[i] === 0) {
+        var nb = neighbors(i, R, C);
+        for (var k = 0; k < nb.length; k++) if (state[nb[k]] === 0) stack.push(nb[k]);
+      }
+    }
+    return opened;
+  }
+  // CORE END
+
+  // ---------- i18n ----------
+  var params = new URLSearchParams(location.search);
+  var lp = params.get('lang');
+  var lang;
+  if (lp) lang = /^en/i.test(lp) ? 'en' : 'zh';
+  else {
+    var nl = (navigator.language || navigator.userLanguage || '') + '';
+    lang = /^en/i.test(nl) ? 'en' : 'zh';
+  }
+  var T = {
+    zh: {
+      title: '扫雷', docTitle: '扫雷 · wyz.name 小游戏',
+      levels: { beginner: '初级', intermediate: '中级', expert: '高级' },
+      dig: '⛏ 挖', flag: '🚩 标记',
+      win: '扫雷成功！', lose: '踩到雷了',
+      time: '用时', best: '最佳', none: '—', newBest: '🏆 新纪录！',
+      again: '再来一局', view: '查看棋盘',
+      hintTouch: '长按插旗 · 点数字快速翻开周围',
+      hintMouse: '左键翻开 · 右键插旗 · 点数字或双键/中键快开 · R 重开',
+      footer: 'wyz.name 小游戏', restart: '重新开始', sec: '秒'
+    },
+    en: {
+      title: 'Minesweeper', docTitle: 'Minesweeper · wyz.name Mini Games',
+      levels: { beginner: 'Beginner', intermediate: 'Intermediate', expert: 'Expert' },
+      dig: '⛏ Dig', flag: '🚩 Flag',
+      win: 'You win!', lose: 'Boom!',
+      time: 'Time', best: 'Best', none: '—', newBest: '🏆 New record!',
+      again: 'Play again', view: 'View board',
+      hintTouch: 'Long-press to flag · Tap a number to chord',
+      hintMouse: 'Left: open · Right: flag · Click number / both / middle: chord · R: restart',
+      footer: 'wyz.name Mini Games', restart: 'Restart', sec: 's'
+    }
+  }[lang];
+  document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var boardEl = $('board'), wrap = $('wrap'), stage = $('stage'), face = $('face');
+  var mineCountEl = $('mineCount'), timerEl = $('timer'), hintEl = $('hint');
+  var overlay = $('overlay');
+
+  document.title = T.docTitle;
+  $('title').textContent = T.title;
+  $('footer').textContent = T.footer;
+  $('ovAgain').textContent = T.again;
+  $('ovView').textContent = T.view;
+  face.title = T.restart;
+  var levelBtns = Array.prototype.slice.call(document.querySelectorAll('#levels button'));
+  levelBtns.forEach(function (b) { b.textContent = T.levels[b.dataset.level]; });
+  var modeBtns = Array.prototype.slice.call(document.querySelectorAll('#mode button'));
+  modeBtns.forEach(function (b) { b.textContent = T[b.dataset.mode]; });
+
+  var LEVELS = {
+    beginner: { r: 9, c: 9, m: 10 },
+    intermediate: { r: 16, c: 16, m: 40 },
+    expert: { r: 16, c: 30, m: 99 }
+  };
+  var coarse = window.matchMedia && matchMedia('(pointer: coarse)').matches;
+
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function bestKey(l) { return 'wyz-games-minesweeper-best-' + l; }
+  function getBest(l) { var v = parseFloat(lsGet(bestKey(l))); return isFinite(v) && v > 0 ? v : null; }
+  function fmtT(s) { return (Math.round(s * 10) / 10).toFixed(1) + T.sec; }
+
+  // ---------- game state ----------
+  var level = LEVELS[lsGet('wyz-games-minesweeper-level')] ? lsGet('wyz-games-minesweeper-level') : 'beginner';
+  var R, C, M, N, mines, counts, state, els = [];
+  var started, over, openedCount, flags, t0 = 0, elapsed = 0, timerId = null;
+  var mode = 'dig';
+
+  function pad3(n) { n = Math.max(-99, Math.min(999, n)); return n < 0 ? '-' + String(-n).padStart(2, '0') : String(n).padStart(3, '0'); }
+  function updateCounter() { mineCountEl.textContent = pad3(M - flags); }
+  function setFace(f) { face.textContent = f || (over ? face.textContent : '🙂'); }
+
+  function updateHint() {
+    var b = getBest(level);
+    var s = (coarse ? T.hintTouch : T.hintMouse);
+    hintEl.innerHTML = '';
+    var bb = document.createElement('b');
+    bb.textContent = '🏆 ' + T.best + ' ' + (b ? fmtT(b) : T.none);
+    hintEl.appendChild(bb);
+    hintEl.appendChild(document.createTextNode(' · ' + s));
+  }
+
+  function newGame(l) {
+    if (l) level = l;
+    lsSet('wyz-games-minesweeper-level', level);
+    levelBtns.forEach(function (b) { b.classList.toggle('on', b.dataset.level === level); });
+    stopTimer();
+    var L = LEVELS[level];
+    R = L.r; C = L.c; M = L.m;
+    // On portrait screens, rotate wide boards so they fit better.
+    if (C > R && stage.clientHeight > stage.clientWidth * 1.15) { var t = R; R = C; C = t; }
+    N = R * C;
+    mines = new Uint8Array(N); counts = new Uint8Array(N); state = new Uint8Array(N);
+    started = false; over = false; openedCount = 0; flags = 0; elapsed = 0;
+    timerEl.textContent = '000';
+    updateCounter();
+    face.textContent = '🙂';
+    overlay.classList.remove('show');
+    boardEl.className = '';
+    boardEl.style.setProperty('--cols', C);
+    var frag = document.createDocumentFragment();
+    els = new Array(N);
+    for (var i = 0; i < N; i++) {
+      var d = document.createElement('div');
+      d.className = 'cell';
+      d.dataset.i = i;
+      els[i] = d;
+      frag.appendChild(d);
+    }
+    boardEl.innerHTML = '';
+    boardEl.appendChild(frag);
+    fit();
+    wrap.scrollTop = 0; wrap.scrollLeft = 0;
+    updateHint();
+  }
+
+  function fit() {
+    if (!R) return;
+    var cs = getComputedStyle(wrap);
+    var pw = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) + 6;
+    var ph = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom) + 6;
+    var W = wrap.clientWidth - pw, H = wrap.clientHeight - ph;
+    var g = 3;
+    var s = Math.floor(Math.min((W - (C - 1) * g) / C, (H - (R - 1) * g) / R));
+    if (s < 28) { g = 2; s = Math.floor(Math.min((W - (C - 1) * g) / C, (H - (R - 1) * g) / R)); }
+    s = Math.max(22, Math.min(48, s));
+    boardEl.style.setProperty('--s', s + 'px');
+    boardEl.style.setProperty('--g', g + 'px');
+  }
+
+  function startTimer() {
+    t0 = performance.now();
+    timerId = setInterval(tick, 250);
+  }
+  function tick() {
+    elapsed = (performance.now() - t0) / 1000;
+    timerEl.textContent = pad3(Math.floor(elapsed));
+  }
+  function stopTimer() {
+    if (timerId) { clearInterval(timerId); timerId = null; }
+    if (started) tick();
+  }
+
+  function draw(i) {
+    var el = els[i], s = state[i];
+    if (s === 1) {
+      var n = counts[i];
+      el.className = 'cell open' + (n ? ' num n' + n : '');
+      el.textContent = n ? n : '';
+    } else if (s === 2) {
+      el.className = 'cell flag';
+      el.textContent = '🚩';
+    } else {
+      el.className = 'cell';
+      el.textContent = '';
+    }
+  }
+
+  function vibrate(p) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
+
+  function openCell(i) {
+    if (over || state[i] !== 0) return;
+    if (!started) {
+      mines = placeMines(R, C, M, i);
+      counts = computeCounts(mines, R, C);
+      started = true;
+      startTimer();
+    }
+    if (mines[i]) { lose(i); return; }
+    var op = flood(state, mines, counts, R, C, i);
+    openedCount += op.length;
+    for (var k = 0; k < op.length; k++) draw(op[k]);
+    checkWin();
+  }
+
+  function toggleFlag(i) {
+    if (over || state[i] === 1) return false;
+    if (state[i] === 2) { state[i] = 0; flags--; } else { state[i] = 2; flags++; }
+    draw(i);
+    updateCounter();
+    return true;
+  }
+
+  function flashHint(list) {
+    list.forEach(function (n) { els[n].classList.add('hint'); });
+    setTimeout(function () { list.forEach(function (n) { if (state[n] !== 1) els[n].classList.remove('hint'); }); }, 180);
+  }
+
+  function chord(i) {
+    if (over || state[i] !== 1 || counts[i] === 0) return;
+    var nb = neighbors(i, R, C), f = 0, hidden = [], k;
+    for (k = 0; k < nb.length; k++) {
+      if (state[nb[k]] === 2) f++;
+      else if (state[nb[k]] === 0) hidden.push(nb[k]);
+    }
+    if (!hidden.length) return;
+    if (f !== counts[i]) { flashHint(hidden); return; }
+    var boom = -1;
+    for (k = 0; k < hidden.length; k++) {
+      var n = hidden[k];
+      if (state[n] !== 0) continue;
+      if (mines[n]) { if (boom < 0) boom = n; continue; }
+      var op = flood(state, mines, counts, R, C, n);
+      openedCount += op.length;
+      for (var q = 0; q < op.length; q++) draw(op[q]);
+    }
+    if (boom >= 0) lose(boom); else checkWin();
+  }
+
+  function primary(i, m) {
+    if (over) return;
+    var s = state[i];
+    if (s === 1) { chord(i); return; }
+    if (m === 'flag') { toggleFlag(i); return; }
+    if (s === 2) return;
+    openCell(i);
+  }
+
+  function lose(i) {
+    over = true;
+    stopTimer();
+    for (var k = 0; k < N; k++) {
+      if (mines[k] && state[k] !== 2) { els[k].className = 'cell mine'; els[k].textContent = '💣'; }
+      else if (state[k] === 2 && !mines[k]) { els[k].className = 'cell wrong'; els[k].textContent = '✕'; }
+    }
+    els[i].className = 'cell mine boom';
+    els[i].textContent = '💥';
+    boardEl.className = 'lost';
+    face.textContent = '😵';
+    vibrate([70, 40, 90]);
+    setTimeout(function () { if (over) showOverlay(false); }, 650);
+  }
+
+  function checkWin() {
+    if (openedCount !== N - M) return;
+    over = true;
+    stopTimer();
+    for (var k = 0; k < N; k++) if (mines[k] && state[k] !== 2) { state[k] = 2; draw(k); }
+    flags = M; updateCounter();
+    boardEl.className = 'won';
+    face.textContent = '😎';
+    vibrate([30, 40, 30]);
+    var t = Math.round(elapsed * 10) / 10;
+    var prev = getBest(level), isNew = false;
+    if (!prev || t < prev) { lsSet(bestKey(level), String(t)); isNew = true; }
+    updateHint();
+    setTimeout(function () { if (over) showOverlay(true, t, isNew); }, 450);
+  }
+
+  function showOverlay(won, t, isNew) {
+    var card = $('card');
+    card.className = 'card' + (won ? '' : ' lose');
+    $('ovIcon').textContent = won ? '😎' : '💥';
+    $('ovTitle').textContent = won ? T.win : T.lose;
+    $('ovTime').innerHTML = '';
+    var b = document.createElement('b');
+    b.textContent = fmtT(won ? t : elapsed);
+    $('ovTime').appendChild(document.createTextNode(T.time + ' '));
+    $('ovTime').appendChild(b);
+    var best = getBest(level);
+    $('ovBest').textContent = T.best + ' ' + (best ? fmtT(best) : T.none) + ' · ' + T.levels[level];
+    $('ovNew').textContent = won && isNew ? T.newBest : '';
+    $('ovNew').style.display = won && isNew ? '' : 'none';
+    overlay.classList.add('show');
+  }
+
+  // ---------- input ----------
+  var pressed = [];
+  function clearPress() { pressed.forEach(function (n) { if (els[n]) els[n].classList.remove('press'); }); pressed = []; }
+  function pressVisual(i, withNb) {
+    clearPress();
+    if (over || i == null || !els[i]) return;
+    var list = withNb ? [i].concat(neighbors(i, R, C)) : [i];
+    list.forEach(function (n) { if (state[n] === 0) { els[n].classList.add('press'); pressed.push(n); } });
+  }
+  function cellIdx(target) {
+    var c = target && target.closest ? target.closest('.cell') : null;
+    return c && boardEl.contains(c) ? +c.dataset.i : null;
+  }
+
+  var mouseLeft = false, chordArmed = false, ptr = null;
+
+  boardEl.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  boardEl.addEventListener('mousedown', function (e) { if (e.button === 1) e.preventDefault(); });
+  boardEl.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+  boardEl.addEventListener('pointerdown', function (e) {
+    var i = cellIdx(e.target);
+    if (i == null || over) return;
+    if (e.pointerType === 'mouse') {
+      e.preventDefault();
+      if (e.button === 1 || (e.buttons & 3) === 3) {
+        chordArmed = true; pressVisual(i, true); face.textContent = '😮'; return;
+      }
+      if (e.button === 2) { toggleFlag(i); return; }
+      if (e.button === 0) { mouseLeft = true; pressVisual(i, state[i] === 1); face.textContent = '😮'; }
+      return;
+    }
+    // touch / pen
+    if (ptr) { clearTimeout(ptr.timer); ptr = null; clearPress(); return; }
+    ptr = { id: e.pointerId, i: i, x: e.clientX, y: e.clientY, long: false, timer: 0 };
+    pressVisual(i, state[i] === 1);
+    var me = ptr;
+    me.timer = setTimeout(function () {
+      if (ptr !== me) return;
+      me.long = true;
+      clearPress();
+      if (state[me.i] === 1) chord(me.i);
+      else if (toggleFlag(me.i)) vibrate(28);
+    }, 400);
+  });
+
+  boardEl.addEventListener('pointermove', function (e) {
+    if (e.pointerType === 'mouse') {
+      if (over) return;
+      if ((e.buttons & 3) === 3 && !chordArmed) chordArmed = true;
+      if (chordArmed || mouseLeft) {
+        var i = cellIdx(e.target);
+        pressVisual(i, chordArmed || (i != null && state[i] === 1));
+      }
+      return;
+    }
+    if (ptr && e.pointerId === ptr.id) {
+      var dx = e.clientX - ptr.x, dy = e.clientY - ptr.y;
+      if (dx * dx + dy * dy > 144) { clearTimeout(ptr.timer); ptr = null; clearPress(); }
+    }
+  });
+
+  boardEl.addEventListener('pointerup', function (e) {
+    if (e.pointerType === 'mouse') {
+      var i = cellIdx(e.target);
+      clearPress();
+      if (over) return;
+      if (chordArmed) {
+        if (e.buttons === 0) { chordArmed = false; mouseLeft = false; if (i != null) chord(i); }
+      } else if (e.button === 0 && mouseLeft) {
+        mouseLeft = false;
+        if (i != null) primary(i, 'dig');
+      }
+      if (!over) face.textContent = '🙂';
+      return;
+    }
+    if (!ptr || e.pointerId !== ptr.id) return;
+    clearTimeout(ptr.timer);
+    clearPress();
+    var p = ptr; ptr = null;
+    if (!p.long) primary(p.i, mode);
+    e.preventDefault();
+  });
+
+  function cancelPtr() { if (ptr) { clearTimeout(ptr.timer); ptr = null; } clearPress(); }
+  boardEl.addEventListener('pointercancel', cancelPtr);
+  boardEl.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') clearPress(); });
+  window.addEventListener('pointerup', function (e) {
+    if (e.pointerType === 'mouse' && e.buttons === 0) {
+      mouseLeft = false; chordArmed = false; clearPress();
+      if (!over) face.textContent = '🙂';
+    }
+  });
+  wrap.addEventListener('scroll', cancelPtr, { passive: true });
+
+  // Block pinch / double-tap zoom on the page.
+  document.addEventListener('gesturestart', function (e) { e.preventDefault(); });
+  document.addEventListener('dblclick', function (e) { e.preventDefault(); });
+  document.addEventListener('touchmove', function (e) { if (e.touches && e.touches.length > 1) e.preventDefault(); }, { passive: false });
+
+  // ---------- controls ----------
+  face.addEventListener('click', function () { newGame(); });
+  levelBtns.forEach(function (b) { b.addEventListener('click', function () { newGame(b.dataset.level); }); });
+  function setMode(m) {
+    mode = m;
+    modeBtns.forEach(function (b) { b.classList.toggle('on', b.dataset.mode === m); });
+  }
+  modeBtns.forEach(function (b) { b.addEventListener('click', function () { setMode(b.dataset.mode); }); });
+  $('ovAgain').addEventListener('click', function () { newGame(); });
+  $('ovView').addEventListener('click', function () { overlay.classList.remove('show'); });
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.classList.remove('show'); });
+  document.addEventListener('keydown', function (e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'r' || k === 'R' || k === 'F2') { e.preventDefault(); newGame(); }
+    else if (k === 'f' || k === 'F') setMode(mode === 'dig' ? 'flag' : 'dig');
+    else if (k === '1') newGame('beginner');
+    else if (k === '2') newGame('intermediate');
+    else if (k === '3') newGame('expert');
+  });
+
+  var fitRaf = 0;
+  function scheduleFit() { cancelAnimationFrame(fitRaf); fitRaf = requestAnimationFrame(fit); }
+  if (window.ResizeObserver) new ResizeObserver(scheduleFit).observe(wrap);
+  else window.addEventListener('resize', scheduleFit);
+
+  newGame(level);
+})();
+</script>
+</body>
+</html>
