@@ -12,7 +12,7 @@
     <div>{{ if $zh }}概率{{ else }}Odds{{ end }}</div>
     <div>{{ if $zh }}有效期{{ else }}Until{{ end }}</div>
     <div>{{ if $zh }}应验{{ else }}Result{{ end }}</div>
-    <div>{{ if $zh }}猜测时间{{ else }}Made{{ end }}</div>
+    <div>{{ if $zh }}猜测 / 调整{{ else }}Made / Revised{{ end }}</div>
   </div>
   <div class="gs-body"></div>
   <div class="gs-more"></div>
@@ -27,7 +27,7 @@
 @keyframes gsp{50%{opacity:.35}}
 .gs-sub{font-size:.75rem;opacity:.6;margin-top:.15rem}
 .gs-score{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem;opacity:.85;white-space:nowrap}
-.gs-row{display:grid;grid-template-columns:minmax(0,1fr) 7.5rem 6.2rem 3rem 6.2rem;gap:.8rem;align-items:center;padding:.65rem .2rem;
+.gs-row{display:grid;grid-template-columns:minmax(0,1fr) 9rem 6.2rem 3rem 6.2rem;gap:.8rem;align-items:center;padding:.65rem .2rem;
  border-top:1px solid rgba(127,127,127,.15);font-size:.9rem}
 .gs-th{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;opacity:.5;border-top:0;padding-top:0}
 .gs-mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums;font-size:.8rem}
@@ -38,6 +38,8 @@
 .gs-res{font-size:1.15rem;font-weight:800;text-align:center}
 .gs-ok{color:var(--ok)} .gs-bad{color:var(--bad)} .gs-wait{font-size:.68rem;opacity:.55;font-weight:400}
 .gs-lab{display:none}
+.gs-was{font-size:.66rem;opacity:.5;text-decoration:line-through;white-space:nowrap}
+.gs-upd{font-size:.68rem;color:var(--c1);opacity:.9}
 .gs-body{max-height:18.5rem;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(129,140,248,.5) transparent;padding-right:.25rem}
 .gs-body::-webkit-scrollbar{width:4px}.gs-body::-webkit-scrollbar-thumb{background:linear-gradient(var(--c1),var(--c2));border-radius:4px}
 .gs-body.gs-fade{-webkit-mask-image:linear-gradient(#000 85%,transparent);mask-image:linear-gradient(#000 85%,transparent)}
@@ -59,7 +61,7 @@
   var root=document.getElementById('guesses');if(!root)return;
   var ZH=root.dataset.lang==='zh',G={{ hugo.Data.guesses | default slice | jsonify | safeJS }};
   var d=new Date(),today=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
-  var T=ZH?{wait:'待核对',hit:'已应验',until:'有效期 ',made:'猜于 '}:{wait:'pending',hit:'Hit rate',until:'until ',made:'made '};
+  var T=ZH?{wait:'待核对',hit:'已应验',until:'有效期 ',made:'猜于 ',upd:'调于 ',was:'原'}:{wait:'pending',hit:'Hit rate',until:'until ',made:'made ',upd:'revised ',was:'was '};
   G.forEach(function(g){g.old=g.until<today;var r=g.result;g.result=(r===true||r==='对'||r==='true')?true:(r===false||r==='错'||r==='false')?false:null});
   G.sort(function(a,b){if(a.old!==b.old)return a.old?1:-1;if(a.until!==b.until)return (a.until<b.until?-1:1)*(a.old?-1:1);return a.added<b.added?1:a.added>b.added?-1:0});
   var done=G.filter(function(g){return g.old&&(g.result===true||g.result===false)}),hit=done.filter(function(g){return g.result===true}).length;
@@ -69,11 +71,11 @@
     var r='';if(g.old){r=g.result===true?'<span class="gs-ok">✓</span>':g.result===false?'<span class="gs-bad">✗</span>':'<span class="gs-wait">'+T.wait+'</span>'}
     return '<div class="gs-row'+(g.old?' gs-old':'')+'">'+
       '<div class="c-t gs-dim">'+esc(ZH?g.zh:g.en)+'</div>'+
-      '<div class="c-p gs-p gs-dim"><span class="gs-bar"><i style="width:'+(+g.p||0)+'%"></i></span><span class="gs-mono">'+esc(g.p)+'%</span></div>'+
+      '<div class="c-p gs-p gs-dim"><span class="gs-bar"><i style="width:'+(+g.p||0)+'%"></i></span><span class="gs-mono">'+esc(g.p)+'%</span>'+(g.p0!=null&&g.p0!==''?'<span class="gs-was">'+T.was+esc(g.p0)+'%</span>':'')+'</div>'+
       '<div class="c-u gs-mono gs-dim">'+esc(g.until)+'</div>'+
       '<div class="c-r gs-res">'+r+'</div>'+
-      '<div class="c-a gs-mono gs-dim">'+esc(g.added)+'</div>'+
-      '<div class="c-m gs-mono gs-dim">'+T.until+esc(g.until)+' · '+T.made+esc(g.added)+'</div>'+
+      '<div class="c-a gs-mono gs-dim">'+esc(g.added)+(g.updated?'<div class="gs-upd">'+T.upd+esc(g.updated.slice(5))+'</div>':'')+'</div>'+
+      '<div class="c-m gs-mono gs-dim">'+T.until+esc(g.until)+' · '+T.made+esc(g.added)+(g.updated?' · '+T.upd+esc(g.updated):'')+'</div>'+
     '</div>'}).join('');
   var body=root.querySelector('.gs-body'),more=root.querySelector('.gs-more');
   function upd(){var sc=body.scrollHeight>body.clientHeight+2,end=body.scrollTop+body.clientHeight>=body.scrollHeight-4;
