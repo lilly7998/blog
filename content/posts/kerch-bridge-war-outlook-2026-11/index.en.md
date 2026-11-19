@@ -1,6 +1,6 @@
 ---
 title: "After the Bridge: The Russia-Ukraine War and the Great-Power Game Behind It"
-date: 2026-11-19T20:30:00+08:00
+date: 2026-11-19T20:00:00+08:00
 draft: false
 description: "The Crimean Bridge hit three times in four days, a Shenzhen summit that never mentioned Ukraine, and a Coalition of the Willing meeting in Berlin. Where the front stands, what Russia, the US, Europe and China each want, and odds on when the guns fall silent."
 summary: "The bridge strike was a heavy blow before the talks, but it did not change the logic of a war of attrition. The real ceasefire window opens in the second half of 2027 at the earliest."
