@@ -4,7 +4,7 @@
     <div id="wx-days" class="hidden mt-1"></div>
   </div>
   <div id="kd"></div>
-  <div id="busuanzi_container_site_pv" style="display:none"><span id="sv-label"></span><span id="busuanzi_value_site_pv"></span></div>
+  <div id="pv-site" style="display:none"><span id="sv-label"></span><span id="pv-site-n"></span></div>
 </div>
 <script>
 (function(){
@@ -66,4 +66,26 @@
   }).join(' · ') : '';
 })();
 </script>
-<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+/* ---------- View counter: Abacus (abacus.jasoncameron.dev), site total started at 190 on 2026-11-19 ---------- */
+(function(){
+  var API = 'https://abacus.jasoncameron.dev', NS = 'wyz-name';
+  function seen(k){ try{ if(sessionStorage.getItem('pv:'+k)) return true; sessionStorage.setItem('pv:'+k,'1'); }catch(e){} return false; }
+  function count(key, elId, boxId){
+    var el = document.getElementById(elId), box = document.getElementById(boxId);
+    if(!el || !box) return;
+    var op = seen(key) ? 'get' : 'hit';
+    fetch(API+'/'+op+'/'+NS+'/'+key).then(function(r){return r.json();}).then(function(d){
+      if(typeof d.value === 'number' && d.value >= 0){ el.textContent = d.value; box.style.display = ''; }
+    }).catch(function(){});
+  }
+  function pageKey(){
+    var p = location.pathname.replace(/^\/en(\/|$)/, '/').replace(/index\.html$/, '');
+    var k = p.replace(/[^A-Za-z0-9_.-]+/g, '-').replace(/^-+|-+$/g, '') || 'home';
+    if(k.length > 60){ var h = 0; for(var i=0;i<k.length;i++){ h = (h*31 + k.charCodeAt(i)) >>> 0; } k = k.slice(0,48) + '-' + h.toString(36); }
+    return 'p-' + k;
+  }
+  count('site-pv', 'pv-site-n', 'pv-site');
+  count(pageKey(), 'pv-page-n', 'pv-page');
+})();
+</script>
