@@ -1,0 +1,11 @@
+{{- $zh := eq .Page.Language.Lang "zh-cn" -}}
+<div class="cpt-wrap"><table class="cpt">
+<thead><tr><th>{{ if $zh }}名称{{ else }}Name{{ end }}</th><th>{{ if $zh }}免费层要点{{ else }}Free tier{{ end }}</th></tr></thead>
+<tbody>
+{{- range site.Data.cloudpicks }}
+<tr class="cpt-group"><td colspan="2">{{ if $zh }}{{ .zh }}{{ else }}{{ .en }}{{ end }}</td></tr>
+{{- range .items }}
+<tr{{ with .mark }} class="cp-{{ . }}"{{ end }}><td><a class="cp-name" href="{{ .url }}" target="_blank" rel="noopener">{{ .name }}</a><span class="cp-url">{{ replaceRE "^https?://(www\\.)?" "" .url | replaceRE "/$" "" | replaceRE "/.*$" "" }}</span></td><td>{{ if $zh }}{{ .zh }}{{ else }}{{ .en }}{{ end }}</td></tr>
+{{- end }}
+{{- end }}
+</tbody></table></div>

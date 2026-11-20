@@ -5,3 +5,10 @@
 .cp-item .cp-desc{margin-top:.25rem;font-size:.95rem}
 .cp-own .cp-name{color:#e3b96b !important}
 .cp-wait .cp-name{text-decoration:underline dotted;text-underline-offset:4px}
+.cpt-wrap{overflow-x:auto}
+.cpt{width:100%;border-collapse:collapse;font-size:.92rem}
+.cpt th,.cpt td{padding:.45rem .6rem;border-bottom:1px solid rgba(148,163,184,.2);text-align:left;vertical-align:top}
+.cpt .cpt-group td{font-weight:700;padding-top:1rem;opacity:.85}
+.cpt .cp-name{font-weight:600;text-decoration:none}
+.cpt .cp-url{display:block;font-size:.75rem;opacity:.55}
+.cpt tr.cp-own td:first-child{box-shadow:inset 2px 0 0 #e3b96b}

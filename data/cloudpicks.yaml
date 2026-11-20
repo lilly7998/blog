@@ -1,0 +1,203 @@
+- zh: 云主机与 VPS
+  en: Cloud servers and VPS
+  items:
+  - name: Oracle Cloud Always Free
+    url: https://www.oracle.com/cloud/free/
+    mark: ''
+    zh: 永久免费 ARM 主机，需绑卡
+    en: Always-free ARM VMs; card needed
+  - name: Google Cloud Free Tier
+    url: https://cloud.google.com/free
+    mark: ''
+    zh: 永久 1 台 e2-micro，需绑卡
+    en: One e2-micro forever; card needed
+  - name: AWS Free Tier
+    url: https://aws.amazon.com/free/
+    mark: ''
+    zh: 新账号试用额度，需绑卡
+    en: Trial credit for new accounts; card needed
+  - name: Azure Free Account
+    url: https://azure.microsoft.com/free/
+    mark: ''
+    zh: 12 个月免费 + 赠金，需绑卡
+    en: 12 months free + credit; card needed
+  - name: EUserv VS2-free
+    url: https://www.euserv.com/en/virtual-private-server/root-vserver/v2/vs2-free.php
+    mark: ''
+    zh: IPv6-only 小 VPS，常缺货
+    en: IPv6-only mini VPS; often sold out
+  - name: Openworld
+    url: https://openworld.eu.org
+    mark: wait
+    zh: 免费 Proxmox VPS，按周续期
+    en: Free Proxmox VPS, renewed weekly
+  - name: weeny.cloud
+    url: https://weeny.cloud
+    mark: wait
+    zh: 智能体 VPS，排队领名额
+    en: Agent VPS via waitlist
+  - name: Altare
+    url: https://altare.gg
+    mark: wait
+    zh: 6 GB 内存池，最多 4 台
+    en: 6 GB RAM pool, up to 4 servers
+- zh: 开发环境与笔记本
+  en: Dev environments and notebooks
+  items:
+  - name: InstaBox
+    url: https://instabox.sh
+    mark: own
+    zh: 4 核 8 GB 云机，闲置挂起
+    en: 4 cores / 8 GB, pauses when idle
+  - name: GitHub Codespaces
+    url: https://github.com/features/codespaces
+    mark: ''
+    zh: 每月免费核心时长
+    en: Monthly free core-hours
+  - name: Google Colab
+    url: https://colab.research.google.com
+    mark: ''
+    zh: 免费 Jupyter + 有限 GPU
+    en: Free Jupyter + limited GPU
+  - name: Kaggle Notebooks
+    url: https://www.kaggle.com
+    mark: ''
+    zh: 每周免费 GPU/TPU 时长
+    en: Weekly free GPU/TPU hours
+  - name: Lightning AI Studios
+    url: https://lightning.ai
+    mark: ''
+    zh: 云端 GPU 工作室，月度额度
+    en: Cloud GPU studios, monthly credit
+- zh: 应用托管
+  en: App hosting
+  items:
+  - name: GitHub Pages
+    url: https://pages.github.com
+    mark: own
+    zh: 静态站免费，支持自定义域名
+    en: Free static sites, custom domains
+  - name: Cloudflare Workers & Pages
+    url: https://workers.cloudflare.com
+    mark: ''
+    zh: 每天 10 万次请求
+    en: 100,000 requests a day
+  - name: Vercel
+    url: https://vercel.com
+    mark: ''
+    zh: Hobby 免费，限非商用
+    en: Free Hobby plan, non-commercial
+  - name: Netlify
+    url: https://www.netlify.com
+    mark: ''
+    zh: 静态站 + 函数，个人够用
+    en: Static sites + functions
+  - name: Render
+    url: https://render.com
+    mark: ''
+    zh: 免费 Web 服务，闲置休眠
+    en: Free web services; sleep when idle
+  - name: Deno Deploy
+    url: https://deno.com/deploy
+    mark: ''
+    zh: 无服务器 JS/TS
+    en: Serverless JS/TS
+  - name: blitz.cloud
+    url: https://blitz.cloud
+    mark: own
+    zh: 5 个应用 + 1 个数据库
+    en: 5 apps + 1 database
+  - name: Hugging Face Spaces
+    url: https://huggingface.co/spaces
+    mark: ''
+    zh: 免费 CPU 演示空间
+    en: Free CPU demo Spaces
+- zh: 数据库与存储
+  en: Databases and storage
+  items:
+  - name: Supabase
+    url: https://supabase.com
+    mark: ''
+    zh: 2 个项目，闲置一周暂停
+    en: 2 projects; pause after a week idle
+  - name: Neon
+    url: https://neon.com
+    mark: ''
+    zh: 无服务器 Postgres，可分支
+    en: Serverless Postgres with branching
+  - name: Turso
+    url: https://turso.tech
+    mark: ''
+    zh: 边缘 SQLite，免费层大方
+    en: Edge SQLite, generous free tier
+  - name: MongoDB Atlas
+    url: https://www.mongodb.com/products/platform/atlas-database
+    mark: ''
+    zh: M0 集群，512 MB
+    en: M0 cluster, 512 MB
+  - name: Cloudflare R2
+    url: https://www.cloudflare.com/developer-platform/products/r2/
+    mark: ''
+    zh: 每月 10 GB，无出口费
+    en: 10 GB/month, no egress fees
+  - name: IronShard
+    url: https://ironshard.ai
+    mark: own
+    zh: 10 GiB S3 存储，带 MCP
+    en: 10 GiB S3 storage with MCP
+- zh: AI 模型与智能体平台
+  en: AI models and agent platforms
+  items:
+  - name: OpenRouter
+    url: https://openrouter.ai
+    mark: ''
+    zh: 一批 :free 模型，限速
+    en: Rate-limited :free models
+  - name: Groq
+    url: https://groq.com
+    mark: ''
+    zh: 极速推理，免费限速
+    en: Very fast inference, rate-limited
+  - name: Google AI Studio
+    url: https://aistudio.google.com
+    mark: ''
+    zh: Gemini 免费层，部分地区不可用
+    en: Gemini free tier; not in every region
+  - name: Cloudflare Workers AI
+    url: https://developers.cloudflare.com/workers-ai/
+    mark: ''
+    zh: 边缘开源模型，每日额度
+    en: Open models at the edge, daily quota
+  - name: Pollinations.ai
+    url: https://pollinations.ai
+    mark: own
+    zh: 文本/图片 API，任务领额度
+    en: Text/image API, credit via quests
+  - name: AgentScope
+    url: https://platform.agentscope.io
+    mark: own
+    zh: 多智能体框架 + 托管平台
+    en: Multi-agent framework + hosting
+- zh: 网络与邮箱
+  en: Networking and email
+  items:
+  - name: Tailscale
+    url: https://tailscale.com
+    mark: ''
+    zh: 个人组网免费
+    en: Free personal mesh VPN
+  - name: Cloudflare Tunnel
+    url: https://www.cloudflare.com/products/tunnel/
+    mark: ''
+    zh: 免开端口发布内网服务
+    en: Expose services without open ports
+  - name: Amelu
+    url: https://amelu.org
+    mark: own
+    zh: 自定义域名邮箱，IMAP/SMTP
+    en: Custom-domain mail, IMAP/SMTP
+  - name: Cooper Email
+    url: https://cooperemail.com
+    mark: own
+    zh: 5 个收件箱，每月 5000 封
+    en: 5 inboxes, 5,000 emails/month
