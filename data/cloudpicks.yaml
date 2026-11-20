@@ -28,7 +28,7 @@
     en: IPv6-only mini VPS; often sold out
   - name: Openworld
     url: https://openworld.eu.org
-    mark: wait
+    mark: own
     zh: 免费 Proxmox VPS，按周续期
     en: Free Proxmox VPS, renewed weekly
   - name: weeny.cloud

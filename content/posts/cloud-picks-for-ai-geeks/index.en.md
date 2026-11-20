@@ -24,7 +24,7 @@ You don't need to spend money to give your AI agents a home, put up a small site
 
 {{< pick name="EUserv VS2-free" url="https://www.euserv.com/en/virtual-private-server/root-vserver/v2/vs2-free.php" mark="" >}}A free IPv6-only mini VPS from a long-running German host; tiny and often out of stock, fine for IPv6 experiments and light services.{{< /pick >}}
 
-{{< pick name="Openworld" url="https://openworld.eu.org" mark="wait" >}}A community-run free Proxmox VPS in Europe, renewed week by week; often out of stock, so you wait for restocks.{{< /pick >}}
+{{< pick name="Openworld" url="https://openworld.eu.org" mark="own" >}}A community-run free Proxmox VPS in Europe, renewed week by week; often out of stock, so you wait for restocks.{{< /pick >}}
 
 {{< pick name="weeny.cloud" url="https://weeny.cloud" mark="wait" >}}Lightweight VPS built for AI agents; free slots come through a waitlist.{{< /pick >}}
 

@@ -24,7 +24,7 @@ tags: ["免费云服务", "VPS", "PaaS", "AI", "智能体"]
 
 {{< pick name="EUserv VS2-free" url="https://www.euserv.com/en/virtual-private-server/root-vserver/v2/vs2-free.php" mark="" >}}德国老牌主机商的免费 IPv6-only 小 VPS，资源很小、经常缺货，适合玩 IPv6 和轻量服务。{{< /pick >}}
 
-{{< pick name="Openworld" url="https://openworld.eu.org" mark="wait" >}}欧洲社区运营的免费 Proxmox VPS，按周续期，热门时段常缺货，需要蹲补货。{{< /pick >}}
+{{< pick name="Openworld" url="https://openworld.eu.org" mark="own" >}}欧洲社区运营的免费 Proxmox VPS，按周续期，热门时段常缺货，需要蹲补货。{{< /pick >}}
 
 {{< pick name="weeny.cloud" url="https://weeny.cloud" mark="wait" >}}面向 AI 智能体的轻量 VPS，免费名额要排队候补。{{< /pick >}}
 
