@@ -28,7 +28,7 @@ tags: ["免费云服务", "VPS", "PaaS", "AI", "智能体"]
 
 {{< pick name="weeny.cloud" url="https://weeny.cloud" mark="wait" >}}面向 AI 智能体的轻量 VPS，免费名额要排队候补。{{< /pick >}}
 
-{{< pick name="Altare" url="https://altare.gg" mark="wait" >}}每个团队永久免费 6 GB 内存、1.5 核、10 GB 硬盘，可拆成最多 4 台，含可 root SSH 的 Linux 沙盒；不承诺在线率。{{< /pick >}}
+{{< pick name="Altare" url="https://altare.gg" mark="own" >}}每个团队永久免费 6 GB 内存、1.5 核、10 GB 硬盘，可拆成最多 4 台，含可 root SSH 的 Linux 沙盒；不承诺在线率。{{< /pick >}}
 
 
 ## 开发环境与笔记本

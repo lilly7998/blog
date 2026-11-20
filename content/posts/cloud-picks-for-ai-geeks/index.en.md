@@ -28,7 +28,7 @@ You don't need to spend money to give your AI agents a home, put up a small site
 
 {{< pick name="weeny.cloud" url="https://weeny.cloud" mark="wait" >}}Lightweight VPS built for AI agents; free slots come through a waitlist.{{< /pick >}}
 
-{{< pick name="Altare" url="https://altare.gg" mark="wait" >}}Every team gets an always-free pool of 6 GB RAM, 1.5 cores and 10 GB disk, split across up to 4 servers, including Linux sandboxes with root SSH; no uptime guarantee.{{< /pick >}}
+{{< pick name="Altare" url="https://altare.gg" mark="own" >}}Every team gets an always-free pool of 6 GB RAM, 1.5 cores and 10 GB disk, split across up to 4 servers, including Linux sandboxes with root SSH; no uptime guarantee.{{< /pick >}}
 
 
 ## Dev environments and notebooks
