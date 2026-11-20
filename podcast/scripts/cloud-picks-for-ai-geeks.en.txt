@@ -1,0 +1,46 @@
+Cloud picks for AI geeks.
+You don't need to spend money to give your AI agents a home, put up a small site, or run a model experiment. Here are six groups of well-regarded cloud resources with free tiers.
+Now, Cloud servers and VPS.
+Oracle Cloud Always Free: The best-loved always-free cloud servers, with generous ARM instances; sign-up needs a card for verification, and popular regions are often out of capacity.
+Google Cloud Free Tier: One e2-micro VM free forever in selected US regions, plus trial credit for new users; a card is required.
+AWS Free Tier: New accounts get trial credit to try EC2, S3, Lambda and more; a card is required, so set a billing alert.
+Azure Free Account: Twelve months of popular services free for new accounts, plus first-month credit; a card is required.
+EUserv VS2-free: A free IPv6-only mini VPS from a long-running German host; tiny and often out of stock, fine for IPv6 experiments and light services.
+Openworld: A community-run free Proxmox VPS in Europe, renewed week by week; often out of stock, so you wait for restocks.
+weeny.cloud: Lightweight VPS built for AI agents; free slots come through a waitlist.
+Altare: Every team gets an always-free pool of 6 GB RAM, 1.5 cores and 10 GB disk, split across up to 4 servers, including Linux sandboxes with root SSH; no uptime guarantee.
+Now, Dev environments and notebooks.
+InstaBox: Cloud Linux machines for developers and agents; the free plan gives 4 cores and 8 GB, pauses when idle, and runs browser VS Code and Jupyter fine.
+GitHub Codespaces: VS Code dev containers in the browser, with free core-hours every month for personal accounts.
+Google Colab: Free Jupyter notebooks with limited GPU access, the classic first stop for model experiments.
+Kaggle Notebooks: Free weekly GPU/TPU hours, plus a deep library of datasets and competitions.
+Lightning AI Studios: Cloud dev studios with ready-to-use GPU environments and a monthly free allowance.
+Now, App hosting.
+GitHub Pages: Free static site hosting; pairs with Actions for automatic builds and supports custom domains with HTTPS.
+Cloudflare Workers & Pages: Run JS/TS on Cloudflare's global edge; the free plan allows 100,000 requests a day, with unlimited bandwidth for static sites.
+Vercel: The go-to for front ends and Next.js; the free Hobby plan is for non-commercial use.
+Netlify: A veteran host for static sites and functions; the free plan covers personal projects.
+Render: Free web services that run real back ends; they sleep after about 15 idle minutes, so the first visit cold-starts slowly.
+Deno Deploy: Serverless JS/TS hosting with fast deploys and enough free quota for small personal projects.
+blitz.cloud: An EU PaaS from Germany: five free apps plus a managed database, sleeping after 15 idle minutes; its terms forbid proxies.
+Hugging Face Spaces: One-click Gradio, Streamlit or Docker demos on free CPU instances, the standard way to show off AI work.
+Now, Databases and storage.
+Supabase: An open-source Firebase alternative with Postgres, auth and storage; two free projects, paused after a week of inactivity.
+Neon: Serverless Postgres with Git-style branching that scales to zero when idle.
+Turso: An edge database built on libSQL, a SQLite fork, with a generous free tier.
+MongoDB Atlas: An always-free M0 shared cluster with 512 MB of storage, plenty to learn document databases.
+Cloudflare R2: S3-compatible object storage with 10 GB free each month and no egress fees.
+IronShard: S3-compatible storage from Denmark with 10 GiB free and a built-in MCP endpoint, handy as a shared drive for several agents.
+Now, AI models and agent platforms.
+OpenRouter: One API for hundreds of models, always with a batch of rate-limited :free models.
+Groq: Very fast inference on its own LPU chips, with a rate-limited free tier for open models.
+Google AI Studio: The Gemini API has a free tier, though it isn't available in every country or region.
+Cloudflare Workers AI: Open models on Cloudflare's edge with a daily free allowance, a natural fit with Workers.
+Pollinations.ai: Open-source text and image generation APIs, OpenAI-compatible, with free credit earned through quests.
+AgentScope: Alibaba Tongyi's open-source multi-agent framework, with a platform for deploying and hosting agents online.
+Now, Networking and email.
+Tailscale: WireGuard-based networking, free for personal use, that links machines anywhere into one private network in minutes; you can also self-host a Headscale control server.
+Cloudflare Tunnel: Publish home or internal services safely without opening public ports, for free.
+Amelu: Free email on your own domain with IMAP and SMTP, so any phone mail app can send and receive.
+Cooper Email: An email API built for AI agents, with five free inboxes and 5,000 emails a month.
+One last reminder: free quotas and rules change often, so check each provider's site. Many platforms ban proxies or mining on free machines, and breaking that rule can get the account suspended.

@@ -1,0 +1,46 @@
+AI 极客喜欢的云计算资源。
+想给自己的 AI 智能体安个家、搭个小网站、跑个模型实验，其实不必一上来就掏钱。下面按用途分成六组，聊聊互联网上口碑不错、带免费层的云资源。
+先说云主机与 VPS。
+Oracle Cloud Always Free：口碑最好的永久免费云主机，ARM 实例给得很大方；注册要绑卡验证，热门区域常常抢不到机器。
+Google Cloud Free Tier：永久免费一台 e2-micro 小主机（限美国部分区域），新用户另有试用赠金；需要绑卡。
+AWS Free Tier：新账号送试用额度，EC2、S3、Lambda 等常用服务都能练手；需要绑卡，记得设账单提醒。
+Azure Free Account：新账号 12 个月热门服务免费，外加首月赠金；需要绑卡。
+EUserv VS2-free：德国老牌主机商的免费 IPv6-only 小 VPS，资源很小、经常缺货，适合玩 IPv6 和轻量服务。
+Openworld：欧洲社区运营的免费 Proxmox VPS，按周续期，热门时段常缺货，需要蹲补货。
+weeny.cloud：面向 AI 智能体的轻量 VPS，免费名额要排队候补。
+Altare：每个团队永久免费 6 GB 内存、1.5 核、10 GB 硬盘，可拆成最多 4 台，含可 root SSH 的 Linux 沙盒；不承诺在线率。
+先说开发环境与笔记本。
+InstaBox：给开发者和智能体的云端 Linux 机器，免费版 4 核 8 GB，闲置自动挂起，能装 VS Code 网页版和 Jupyter。
+GitHub Codespaces：浏览器里的 VS Code 开发容器，个人账号每月有免费核心时长。
+Google Colab：免费的 Jupyter 笔记本，附带有限的 GPU，跑模型实验的入门首选。
+Kaggle Notebooks：每周有免费 GPU/TPU 时长，数据集和竞赛生态很丰富。
+Lightning AI Studios：云端开发工作室，开箱即用的 GPU 环境，每月有免费额度。
+先说应用托管。
+GitHub Pages：静态网站免费托管，配合 Actions 自动构建部署，能绑自定义域名并开 HTTPS。
+Cloudflare Workers & Pages：在全球边缘跑 JS/TS，免费版每天 10 万次请求，静态站点带宽不限。
+Vercel：前端和 Next.js 部署的首选，Hobby 免费版限非商业用途。
+Netlify：老牌静态站点和函数托管，免费版够个人项目用。
+Render：免费 Web 服务能直接跑后端，闲置约 15 分钟会休眠，首次访问冷启动较慢。
+Deno Deploy：无服务器 JS/TS 托管，部署快，免费额度够个人小项目。
+blitz.cloud：德国的欧盟 PaaS，免费 5 个应用加一个托管数据库，闲置 15 分钟休眠；条款禁止跑代理。
+Hugging Face Spaces：一键部署 Gradio、Streamlit 或 Docker 演示，免费 CPU 实例，AI 圈展示作品的标配。
+先说数据库与存储。
+Supabase：开源的 Firebase 替代品，Postgres 加认证和文件存储，免费 2 个项目，闲置一周会暂停。
+Neon：无服务器 Postgres，支持像 Git 一样开分支，空闲时自动缩到零。
+Turso：基于 libSQL（SQLite 分支）的边缘数据库，免费层很慷慨。
+MongoDB Atlas：永久免费的 M0 共享集群，512 MB 存储，文档数据库入门够用。
+Cloudflare R2：S3 兼容对象存储，每月 10 GB 免费，而且不收出口流量费。
+IronShard：丹麦的 S3 兼容存储，免费 10 GiB，自带 MCP 接口，适合给几个智能体当共享网盘。
+先说AI 模型与智能体平台。
+OpenRouter：一个 API 接几百个模型，常年有一批带 :free 后缀的免费模型（有限速）。
+Groq：自研 LPU 推理速度极快，开放模型有免费额度（限速）。
+Google AI Studio：Gemini API 有免费层，但部分国家和地区用不了。
+Cloudflare Workers AI：在边缘跑开源模型，每天有免费额度，和 Workers 配合很顺。
+Pollinations.ai：开源的文本和图片生成 API，兼容 OpenAI 接口，做任务能领免费额度。
+AgentScope：阿里通义开源的多智能体框架，平台上能在线部署和托管智能体。
+先说网络与邮箱。
+Tailscale：基于 WireGuard 的组网工具，个人版免费，几分钟把散在各处的机器连成内网；也能自建 Headscale 控制端。
+Cloudflare Tunnel：不开公网端口，也能把家里或内网的服务安全地发布出去，免费。
+Amelu：支持自定义域名的免费邮箱，IMAP 和 SMTP 都能用，手机邮件客户端直接收发。
+Cooper Email：给 AI 智能体用的邮箱 API，免费 5 个收件箱、每月 5000 封。
+最后提醒一句：免费额度和规则随时可能调整，以各家官网为准。很多平台禁止用免费机跑代理或挖矿，违规容易被封号。

@@ -70,6 +70,12 @@
   weight = 28
 
 [[main]]
+  name = "Ai极客喜欢的云计算资源"
+  parent = "categories"
+  pageRef = "categories/ai极客喜欢的云计算资源"
+  weight = 29
+
+[[main]]
   name = "播客"
   pageRef = "podcast"
   weight = 40

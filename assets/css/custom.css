@@ -1,0 +1,7 @@
+/* cloud picks list */
+.cp-item{margin:0 0 1.1rem;padding:.6rem .85rem;border-left:2px solid rgba(148,163,184,.35);border-radius:4px}
+.cp-item .cp-name{font-weight:600;text-decoration:none}
+.cp-item .cp-url{display:block;font-size:.8rem;opacity:.6;word-break:break-all}
+.cp-item .cp-desc{margin-top:.25rem;font-size:.95rem}
+.cp-own .cp-name{color:#e3b96b !important}
+.cp-wait .cp-name{text-decoration:underline dotted;text-underline-offset:4px}

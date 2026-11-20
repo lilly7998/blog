@@ -1,0 +1,6 @@
+{{- $m := .Get "mark" -}}{{- $u := .Get "url" -}}
+<div class="cp-item{{ with $m }} cp-{{ . }}{{ end }}">
+  <a class="cp-name" href="{{ $u }}" target="_blank" rel="noopener">{{ .Get "name" }}</a>
+  <span class="cp-url">{{ replaceRE "^https?://(www\\.)?" "" $u | replaceRE "/$" "" }}</span>
+  <div class="cp-desc">{{ .Inner | markdownify }}</div>
+</div>

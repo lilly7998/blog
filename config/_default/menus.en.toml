@@ -63,6 +63,12 @@
   weight = 26
 
 [[main]]
+  name = "Cloud Picks for AI Geeks"
+  parent = "categories"
+  pageRef = "categories/cloud-picks-for-ai-geeks"
+  weight = 27
+
+[[main]]
   name = "Data"
   identifier = "data"
   pageRef = "data"
