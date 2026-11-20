@@ -60,6 +60,8 @@ You don't need to spend money to give your AI agents a home, put up a small site
 
 {{< pick name="blitz.cloud" url="https://blitz.cloud" mark="own" >}}An EU PaaS from Germany: five free apps plus a managed database, sleeping after 15 idle minutes; its terms forbid proxies.{{< /pick >}}
 
+{{< pick name="Cloady" url="https://cloady.com" mark="own" >}}An app platform from NeptoLab: deploy from GitHub, a Docker image or a template, with an MCP server built in. Germany, US East and US West get an always-free 0.5 vCPU, 1 GB RAM and 5 GB disk, with 10 GB of traffic and 4 CPU-hours a month, paused after 7 idle days; other regions only get a one-month trial.{{< /pick >}}
+
 {{< pick name="Hugging Face Spaces" url="https://huggingface.co/spaces" mark="" >}}One-click Gradio, Streamlit or Docker demos on free CPU instances, the standard way to show off AI work.{{< /pick >}}
 
 

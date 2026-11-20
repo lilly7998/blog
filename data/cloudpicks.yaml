@@ -38,7 +38,7 @@
     en: Agent VPS via waitlist
   - name: Altare
     url: https://altare.gg
-    mark: wait
+    mark: own
     zh: 6 GB 内存池，最多 4 台
     en: 6 GB RAM pool, up to 4 servers
 - zh: 开发环境与笔记本
@@ -107,6 +107,11 @@
     mark: own
     zh: 5 个应用 + 1 个数据库
     en: 5 apps + 1 database
+  - name: Cloady
+    url: https://cloady.com
+    mark: own
+    zh: 永久免费 0.5 核 1 GB，限三区
+    en: Always-free 0.5 vCPU / 1 GB in 3 regions
   - name: Hugging Face Spaces
     url: https://huggingface.co/spaces
     mark: ''

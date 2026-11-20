@@ -60,6 +60,8 @@ tags: ["免费云服务", "VPS", "PaaS", "AI", "智能体"]
 
 {{< pick name="blitz.cloud" url="https://blitz.cloud" mark="own" >}}德国的欧盟 PaaS，免费 5 个应用加一个托管数据库，闲置 15 分钟休眠；条款禁止跑代理。{{< /pick >}}
 
+{{< pick name="Cloady" url="https://cloady.com" mark="own" >}}NeptoLab 的应用托管平台，GitHub、Docker 镜像或模板一键部署，自带 MCP。德国、美东、美西三区永久免费 0.5 核、1 GB 内存、5 GB 盘，每月 10 GB 流量和 4 个 CPU 小时，闲置 7 天暂停；其他区只有一个月试用。{{< /pick >}}
+
 {{< pick name="Hugging Face Spaces" url="https://huggingface.co/spaces" mark="" >}}一键部署 Gradio、Streamlit 或 Docker 演示，免费 CPU 实例，AI 圈展示作品的标配。{{< /pick >}}
 
 
